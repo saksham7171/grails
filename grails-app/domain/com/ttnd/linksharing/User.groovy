@@ -8,9 +8,9 @@ class User {
     String password
     String firstName
     String lastName
-    boolean admin
-    boolean active
-    byte[] photo
+    Boolean admin
+    Boolean active
+    Byte[] photo
     Date dateCreated
     Date lastUpdated
 
@@ -18,13 +18,13 @@ class User {
                       resourceRatings: ResourceRating, resources: Resource]
 
     static mapping = {
-        photo(sqlType: "blob")
+        photo(sqlType: "longblob")
     }
 
     static transients = ['name']
 
     String getName() {
-        return "${firstName} ${lastName}"
+        [this.firstName,this.lastName].findAll{it}.join(' ')
     }
 
 
@@ -35,6 +35,7 @@ class User {
         lastName(blank: false)
         active(nullable: true)
         admin(nullable: true)
+        photo(nullable: true)
     }
 
 

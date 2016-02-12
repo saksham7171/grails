@@ -116,4 +116,12 @@ log4j.main = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
+
+    info "grails.app.controllers.Unit"
+    appenders {
+        file name:'file', file:'/home/saksham/glogs.log'
+        layout:pattern(conversionPattern: '%c{2} %m%n')
+    }
+
+
 }

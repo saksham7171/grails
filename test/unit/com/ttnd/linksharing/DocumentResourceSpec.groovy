@@ -9,12 +9,25 @@ import spock.lang.Specification
 @TestFor(DocumentResource)
 class DocumentResourceSpec extends Specification {
 
-    def setup() {
-    }
+    def "validating document resource"() {
+        given:
+        DocumentResource documentResource = new DocumentResource(description: description, createdBy: createdby,
+                topic: topic, filePath: path)
+        when:
+        Boolean valid = documentResource.validate()
 
-    def cleanup() {
-    }
+        then:
+        valid == result
 
-    void "test something"() {
+        where:
+        sno | description   | createdby  | topic       | path             | result
+        1   | "description" | new User() | new Topic() | "/home/saksham" | true
+        2   | ""            | new User() | new Topic() | "/home/saksham" | false
+        3   | null          | new User() | new Topic() | "/home/saksham" | false
+        4   | "description" | null       | new Topic() | "/home/saksham" | false
+        5   | "description" | new User() | null        | "/home/saksham" | false
+        6   | "description" | new User() | new Topic() | ""              | false
+        7   | "description" | new User() | new Topic() | null            | false
+
     }
 }

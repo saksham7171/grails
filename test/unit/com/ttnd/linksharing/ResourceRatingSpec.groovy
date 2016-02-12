@@ -9,12 +9,42 @@ import spock.lang.Specification
 @TestFor(ResourceRating)
 class ResourceRatingSpec extends Specification {
 
-    def setup() {
+    def "validating resource rating"() {
+        given:
+        ResourceRating resourceRating = new ResourceRating(resource: resource, user: user, score: score)
+
+        when:
+        Boolean valid = resourceRating.validate()
+
+        then:
+        valid == result
+
+        where:
+        sno | resource           | user       | score | result
+        1   | new LinkResource() | new User() | 3     | true
+        2   | null               | new User() | 3     | false
+        3   | new LinkResource() | null       | 3     | false
+        4   | new LinkResource() | new User() | 10    | false
+        5   | new LinkResource() | new User() | 0     | false
+
     }
 
-    def cleanup() {
-    }
+    def "validate unique resource rating"() {
+        given:
+        LinkResource resource = new LinkResource()
+        User user = new User()
+        ResourceRating resourceRating = new ResourceRating(resource: resource, user: user, score: 3)
+        ResourceRating resourceRating1 = new ResourceRating(resource: resource, user: user, score: 4)
 
-    void "test something"() {
+        when:
+        resourceRating.save(flush: true)
+        resourceRating1.save(flush: true)
+
+        then:
+        !resourceRating.errors.allErrors.size()
+        resourceRating1.errors.allErrors.size()
+        resourceRating1.errors.getFieldError('resource')
+
+
     }
 }
