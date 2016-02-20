@@ -14,4 +14,19 @@ class Topic {
         visibility(blank: false)
         createdBy(blank: false)
     }
+
+    def afterInsert = {
+        Topic.withNewSession {
+            Subscription subscription = new Subscription(user: this.createdBy, topic: this, seriousness: Seriousness.VERY_SERIOUS)
+            if (subscription.save())
+                log.info "$subscription saved Successfully"
+            else
+                log.info "Error while saving subscriptions"
+        }
+    }
+
+    String toString(){
+        return "$name"
+    }
+
 }

@@ -27,6 +27,9 @@ class User {
         [this.firstName,this.lastName].findAll{it}.join(' ')
     }
 
+    String toString(){
+        return "$firstName $lastName"
+    }
 
     static constraints = {
         email(unique: true, email: true, blank: false)
