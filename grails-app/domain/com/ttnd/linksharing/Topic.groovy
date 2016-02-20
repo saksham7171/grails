@@ -26,7 +26,7 @@ class Topic {
     }
 
     String toString(){
-        return "$name"
+        return "$name Createdby:$createdBy"
     }
 
 }

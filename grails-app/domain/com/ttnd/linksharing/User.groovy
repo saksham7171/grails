@@ -24,7 +24,7 @@ class User {
     static transients = ['name']
 
     String getName() {
-        [this.firstName,this.lastName].findAll{it}.join(' ')
+        return "$firstName $lastName"
     }
 
     String toString(){
