@@ -67,4 +67,14 @@ class UserSpec extends Specification {
 
     }
 
+    def "toString check"() {
+        given:
+        User user = new User(email: "abc@tothenew.com", username: "saksham", password: "pass1234", firstName: "saksham",
+                lastName: "sharma", admin: true, active: true, photo: "photo".bytes)
+
+        expect:
+        user.toString()=="saksham sharma"
+
+    }
+
 }

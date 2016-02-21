@@ -30,6 +30,14 @@ class LinkResourceSpec extends Specification {
         7   | "description" | new User() | new Topic() | ""                         | false
         8   | "description" | new User() | new Topic() | null                       | false
 
+    }
 
+    def "toString validation"() {
+        given:
+        LinkResource linkResource = new LinkResource(description: "description", createdBy: new User(), topic: new Topic(),
+                url: "http://www.tothenew.com/")
+
+        expect:
+        linkResource.toString() == "http://www.tothenew.com/"
     }
 }

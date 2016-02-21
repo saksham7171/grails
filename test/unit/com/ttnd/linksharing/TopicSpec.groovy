@@ -28,10 +28,10 @@ class TopicSpec extends Specification {
         5   | new User() | "name" | null               | false
     }
 
-    def "validating Duplicate topic"(){
+    def "validating Duplicate topic"() {
         given:
-        Topic topic = new Topic(name: "grails",createdBy: new User(),visibility: Visibility.PRIVATE)
-        Topic topic1 = new Topic(name: "grails",createdBy: new User(),visibility: Visibility.PRIVATE)
+        Topic topic = new Topic(name: "grails", createdBy: new User(), visibility: Visibility.PRIVATE)
+        Topic topic1 = new Topic(name: "grails", createdBy: new User(), visibility: Visibility.PRIVATE)
 
         when:
         topic.save(flush: true)
@@ -42,6 +42,15 @@ class TopicSpec extends Specification {
         topic1.errors.allErrors.size()
         topic1.errors.getFieldError('name')
 
+    }
+
+    def "toString validation"() {
+
+        given:
+        Topic topic = new Topic(name: "grails", createdBy: new User(firstName: "saksham ", lastName: "sharma"), visibility: Visibility.PRIVATE)
+
+        expect:
+        topic.toString() == "grails Createdby:saksham sharma"
     }
 
 }

@@ -20,7 +20,7 @@ class DocumentResourceSpec extends Specification {
         valid == result
 
         where:
-        sno | description   | createdby  | topic       | path             | result
+        sno | description   | createdby  | topic       | path            | result
         1   | "description" | new User() | new Topic() | "/home/saksham" | true
         2   | ""            | new User() | new Topic() | "/home/saksham" | false
         3   | null          | new User() | new Topic() | "/home/saksham" | false
@@ -28,6 +28,16 @@ class DocumentResourceSpec extends Specification {
         5   | "description" | new User() | null        | "/home/saksham" | false
         6   | "description" | new User() | new Topic() | ""              | false
         7   | "description" | new User() | new Topic() | null            | false
+
+    }
+
+    def "toString validation"() {
+        given:
+        DocumentResource documentResource = new DocumentResource(description: "description", createdBy: new User(),
+                topic: new Topic(), filePath: "/home/saksham")
+
+        expect:
+        documentResource.toString() == "/home/saksham"
 
     }
 }
