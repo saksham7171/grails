@@ -42,7 +42,7 @@ class BootStrap {
             }
             try {
                 user1.save(flush: true, failOnError: true)
-                users.add(user)
+                users.add(user1)
                 log.info "${user1} is created successfully"
             } catch (ValidationException e) {
                 log.error "Error : ${user1.errors.allErrors}"
