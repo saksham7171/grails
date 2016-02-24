@@ -9,6 +9,11 @@ class Topic {
     Visibility visibility
     static hasMany = [resources: Resource, subscriptions: Subscription]
 
+    static mapping = {
+        sort name: "asc"
+
+    }
+
     static constraints = {
         name(unique: "createdBy", blank: false)
         visibility(blank: false)

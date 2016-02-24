@@ -3,7 +3,7 @@ package com.ttnd.linksharing
 class ApplicationFilters {
 
     def filters = {
-        all(controller:'*', action:'*') {
+        all(controller:'*', action:'*'){
             before = {
                 log.info params
             }

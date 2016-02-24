@@ -1,5 +1,7 @@
 package com.ttnd.linksharing
 
+import com.ttnd.linksharing.constants.Constants
+
 class LoginController {
 
     def index() {
@@ -26,6 +28,16 @@ class LoginController {
                 flash.error = "User is not active"
         } else
             flash.error = "User is not found"
-            render(flash.error)
+        render(flash.error)
+    }
+
+    def register() {
+        User user = new User(email: "dummmy@ttnd.com", username: "dummy", password: Constants.password,
+                firstName: "dummyfirst", lastName: "dummylast", admin: false, active: true, confirmPassword: Constants.password)
+        if(!user.save()){
+            flash.error="User can't be stored"
+        }
+        else
+            render "Success"
     }
 }
