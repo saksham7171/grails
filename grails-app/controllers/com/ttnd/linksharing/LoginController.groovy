@@ -8,7 +8,8 @@ class LoginController {
         if (session.user)
             forward(controller: 'User', action: 'index')
         else
-            render("failure")
+            /*def resources=Resource.getTopPost()*/
+        render "failure"
     }
 
     def logout() {
@@ -36,6 +37,7 @@ class LoginController {
                 firstName: "dummyfirst", lastName: "dummylast", admin: false, active: true, confirmPassword: Constants.password)
         if(!user.save()){
             flash.error="User can't be stored"
+            render(user.errors.allErrors.collect{message(error: it)}.join(","))
         }
         else
             render "Success"

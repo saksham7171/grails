@@ -3,7 +3,8 @@ package com.ttnd.linksharing
 import grails.test.mixin.Mock
 import spock.lang.Specification
 
-@Mock(SessionCheckFilters)
+@Mock(com.ttnd.linksharing.SessionCheckFiltersSpec)
+
 class SessionCheckFiltersSpec extends Specification {
 
     def setup() {

@@ -3,7 +3,10 @@ package com.ttnd.linksharing
 
 class UnitController {
 
-//    def index() {
+    def index() {
+        List<User> user=User.list()
+        render view:'index',model: [user:user]
+    }
 //        log.fatal("fatal ******************************")
 //        log.error("erorr ******************************")
 //        log.warn("warn *******************************")
@@ -12,8 +15,12 @@ class UnitController {
 //        log.trace("trace***************************")
 //    }
 
-    def myFirstAction(){
-        render "hello"
+    def save(User user){
+        if(user?.hasErrors())
+            render view: 'index'
+        else
+        render "saved"
     }
+
 
 }

@@ -24,14 +24,14 @@ class User {
 
     }
 
-    static transients = ['name', 'confirmPassword']
+    static transients = ['name', 'confirmPassword', 'subscribedTopics']
 
     String getName() {
         return "$firstName $lastName"
     }
 
     String toString() {
-        return "$firstName $lastName"
+        return "$username"
     }
 
     static constraints = {
@@ -43,13 +43,19 @@ class User {
         active(nullable: true)
         admin(nullable: true)
         photo(nullable: true)
-        confirmPassword(bindable:true,nullable: true, blank: true, validator: { val, obj ->
+        confirmPassword(bindable: true, nullable: true, blank: true, validator: { val, obj ->
             if (obj.password != val)
                 return 'wrong.password'
         })
-
-
     }
 
-
+    List<Topic> getSubscribedTopic() {
+        List<Topic> topicList = Subscription.createCriteria().list {
+            projections {
+                property('topic')
+            }
+            eq('user.id', id)
+        }
+        topicList
+    }
 }

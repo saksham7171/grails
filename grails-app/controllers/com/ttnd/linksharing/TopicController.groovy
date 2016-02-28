@@ -1,16 +1,18 @@
 package com.ttnd.linksharing
 
+import com.ttnd.linksharing.CO.ResourceSearchCO
+
 class TopicController {
 
     def index() {}
 
-    def show(Long id) {
-        Topic topic = Topic.read(id)
+    def show(ResourceSearchCO co) {
+        Topic topic = Topic.read(co.topicId)
 
         if (!topic) {
             flash.error = "Topic doesn't exists"
             redirect(controller: 'login', action: 'index')
-        } else if (topic.visibility == Enum.Visibility.PUBLIC)
+        } else if (topic.visibility ==Visibility.PUBLIC)
             render("public topic Success")
         else {
             User user = session.user
@@ -30,11 +32,11 @@ class TopicController {
             topic.save(flush: true)
             user.addToTopics(topic)
             Topic.list().add(topic)
-            render "Topic saved Successfully"
         }
         else{
             flash.error="Topic can't be saved"
             log.error "${topic.errors.allErrors}"
         }
+        redirect(uri:'/')
     }
 }
