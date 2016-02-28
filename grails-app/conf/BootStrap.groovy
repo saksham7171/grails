@@ -17,19 +17,19 @@ class BootStrap {
 
     def init = { servletContext ->
         List<User> users = createUsers()
-        List<Topic> topics = createTopics()
+        List<Topic> topics = createTopics(users)
         List<Resource> resources = createResources(topics)
-        List<Subscription> subscriptions = subscribeTopics(topics)
-        List<ReadingItem> readingItems = createReadingItem(topics, resources)
+        List<Subscription> subscriptions = subscribeTopics(topics, users)
+        List<ReadingItem> readingItems = createReadingItem(topics, resources,users)
         List<ResourceRating> resourceRatings = createResourceRating(readingItems)
     }
 
     List<User> createUsers() {
 
         User user = new User(email: "sakham.sharma@ttnd.com", username: "saksham", password: Constants.password,
-                firstName: "saksham", lastName: "sharma", admin: true, active: true)
+                firstName: "saksham", lastName: "sharma", admin: true, active: true,confirmPassword:Constants.password)
         User user1 = new User(email: "brij.kishor@ttnd.com", username: "brij", password: Constants.password,
-                firstName: "brij", lastName: "kishor", admin: false, active: true)
+                firstName: "brij", lastName: "kishor", admin: false, active: true,confirmPassword: Constants.password)
         List<User> users = []
 
         if (!User.count()) {
@@ -42,7 +42,7 @@ class BootStrap {
             }
             try {
                 user1.save(flush: true, failOnError: true)
-                users.add(user)
+                users.add(user1)
                 log.info "${user1} is created successfully"
             } catch (ValidationException e) {
                 log.error "Error : ${user1.errors.allErrors}"
@@ -51,10 +51,10 @@ class BootStrap {
         users
     }
 
-    List<Topic> createTopics() {
+    List<Topic> createTopics(List<User> users) {
 
         List<Topic> topics = []
-        List<User> users = User.list()
+
         users.each { user ->
             if (!user.topics?.size()) {
                 (1..5).each {
@@ -101,8 +101,8 @@ class BootStrap {
         resources
     }
 
-    List<Subscription> subscribeTopics(List<Topic> topics) {
-        List<User> users = User.list()
+    List<Subscription> subscribeTopics(List<Topic> topics, List<User> users) {
+
         List<Subscription> subscriptions = []
 
         users.each { user ->
@@ -123,9 +123,9 @@ class BootStrap {
         subscriptions
     }
 
-    List<ReadingItem> createReadingItem(List<Topic> topics, List<Resource> resources) {
+    List<ReadingItem> createReadingItem(List<Topic> topics, List<Resource> resources, List<User> users) {
         List<ReadingItem> readingItems = []
-        List<User> users = User.list()
+
 
         users.each { user ->
             topics.each { topic ->
