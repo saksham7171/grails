@@ -1,6 +1,7 @@
 package com.ttnd.linksharing
 
 import com.ttnd.linksharing.VO.TopicVO
+import com.ttnd.linksharing.VO.UserVO
 
 
 class Topic {
@@ -58,6 +59,29 @@ class Topic {
           topicVOList.add(new TopicVO(id:list[0],name: list[1],visibility: list[2],count:list[3],createdBy: list[4]))
         }
         topicVOList
+    }
+
+    static List<UserVO> getSubscribedUsers(Topic topic) {
+        List<UserVO> subscribedUsers = []
+        Subscription.createCriteria().list {
+            projections {
+                'user' {
+                    property('id')
+                    property('userName')
+                    property('firstName')
+                    property('lastName')
+                    property('email')
+                    property('photo')
+                    property('isAdmin')
+                    property('isActive')
+                }
+                eq('topic.id',topic.id)
+            }
+        }?.each {
+            subscribedUsers.add(new UserVO(id: it[0], name: it[1], firstName: it[2], lastName: it[3], email: it[4], photo:
+                    it[5], isAdmin: it[6], isActive: it[7]))
+        }
+        return subscribedUsers
     }
 }
 
