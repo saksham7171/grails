@@ -19,7 +19,7 @@ class ResourceController {
             }
         } catch (Exception e) {
             log.error "Error : ${e.message}"
-            render "User can't be deleted"
+            render "Resource can't be deleted"
         }
     }
 

@@ -32,6 +32,7 @@ class TopicController {
             topic.save(flush: true)
             user.addToTopics(topic)
             Topic.list().add(topic)
+            flash.message="topic is saved"
         }
         else{
             flash.error="Topic can't be saved"

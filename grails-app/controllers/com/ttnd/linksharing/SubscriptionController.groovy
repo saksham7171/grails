@@ -9,15 +9,18 @@ class SubscriptionController {
 
     def save(Long id) {
         Topic topic = Topic.get(id)
-        topic ?: render("Topic not found")
-        Subscription subscription = new Subscription(topic: topic, user: session.user)
-        if (subscription.validate()) {
-            subscription.save(flush: true)
-            render("subscription saved successfully")
-        } else {
-            render("subscription cant be saved")
-            render(subscription.errors.allErrors)
+        if (topic ?: render("Topic not found")) {
+            Subscription subscription = new Subscription(topic: topic, user: session.user)
+            if (subscription.validate()) {
+                subscription.save(flush: true)
+                render("subscription saved successfully")
+            } else {
+                render("subscription cant be saved")
+                flash.error = subscription.errors.allErrors
+            }
         }
+
+
     }
 
     def delete(Long id) {
@@ -40,8 +43,6 @@ class SubscriptionController {
             } else {
                 render("Cant be updated")
             }
-        } else {
-            render("Subscription not found")
         }
     }
 }
