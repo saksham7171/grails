@@ -47,10 +47,10 @@ class TopicControllerSpec extends Specification {
     @Ignore
     def "check if topic exists and visibility is private and subscribed"() {
         given:
-        User user = new User()
+        User user = new User().save(validate: false)
         session["user"] = user
         Topic topic = new Topic(name: "topic1", visibility: Visibility.PRIVATE, createdBy: user)
-        topic.save(flush: true)
+        topic.save(validate: false)
         ResourceSearchCO co = new ResourceSearchCO(topicId: 1)
 
         when:
