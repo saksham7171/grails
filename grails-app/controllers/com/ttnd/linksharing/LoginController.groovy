@@ -8,8 +8,9 @@ class LoginController {
         if (session.user)
             forward(controller: 'User', action: 'index')
         else
-            /*def resources=Resource.getTopPost()*/
-        render "failure"
+          return Resource.getTopPost()
+//        def resources=Resource.getTopPost()
+//        render "failure"
     }
 
     def logout() {

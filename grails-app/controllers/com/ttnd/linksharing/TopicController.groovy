@@ -18,6 +18,7 @@ class TopicController {
             User user = session.user
             if (!Subscription.findByUserAndTopic(user, topic)) {
                 flash.error = "Private Topic,Not Subscribed"
+                render (flash.error)
             } else
                 render("private topic Success")
         }
