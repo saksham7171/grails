@@ -4,6 +4,8 @@ dataSource {
     driverClassName = "com.mysql.jdbc.Driver"
     dialect = org.hibernate.dialect.MySQL5InnoDBDialect
 
+
+
 }
 hibernate {
     cache.use_second_level_cache = true
@@ -12,6 +14,7 @@ hibernate {
     cache.region.factory_class = 'org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory' // Hibernate 4
     singleSession = true // configure OSIV singleSession mode
     flush.mode = 'manual' // OSIV session flush mode outside of transactional context
+    format_sql=true
 }
 
 // environment specific settings
@@ -20,9 +23,10 @@ environments {
         dataSource {
            /* dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
             url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"*/
+            logSql=true
             username = "root"
             password = "igdefault"
-            dbCreate = "create"
+            dbCreate = "update"
             url = "jdbc:mysql://localhost:3306/linksharing"
         }
     }

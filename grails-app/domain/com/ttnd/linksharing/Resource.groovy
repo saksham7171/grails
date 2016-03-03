@@ -26,38 +26,51 @@ abstract class Resource {
                 eq('topic', Topic.get(co.topicId))
             }
             if (co.visibility) {
-                'topic'{
+                'topic' {
                     eq('visibility', co.visibility)
                 }
             }
         }
     }
 
-    RatingInfoVO getRatingInfo(){
-        List result=ResourceRating.createCriteria().get {
+    RatingInfoVO getRatingInfo() {
+        List result = ResourceRating.createCriteria().get {
             projections {
                 count('score')
                 avg('score')
                 sum('score')
             }
-            eq('resource',this)
+            eq('resource', this)
         }
-        new RatingInfoVO(totalVotes: result[0],averageScore: result[1],totalScore: result[2])
+        new RatingInfoVO(totalVotes: result[0], averageScore: result[1], totalScore: result[2])
     }
 
-   static List<Resource> getTopPost(){
-        List<Resource> resources=[]
-        def result=ResourceRating.createCriteria().list(){
+    static List<Resource> getTopPost() {
+        List<Resource> resources = []
+        def result = ResourceRating.createCriteria().list() {
             projections {
                 property('resource.id')
             }
-            groupProperty('resource.id')
-            count('id','totalVotes')
-            order('totalVotes','desc')
+            createAlias('resource', 'r')
+            createAlias('r.topic', 'rt')
+            groupProperty('r.id')
+            eq('rt.visibility', Visibility.PUBLIC)
+            avg('score', 'score')
+            order('score', 'desc')
             maxResults 5
         }
-        List list=result.collect{it[0]}
-        resources=Resource.getAll(list)
+        List list = result.collect { it[0] }
+        resources = Resource.getAll(list)
+
     }
 
+    static List<Resource> getRecentShare(){
+        def result = Resource.createCriteria().list() {
+            createAlias('topic','t')
+            eq('t.visibility', Visibility.PUBLIC)
+            order('lastUpdated', 'desc')
+            maxResults 5
+        }
+        result
+    }
 }

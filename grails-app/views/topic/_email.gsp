@@ -15,7 +15,7 @@
                         <label class="col-sm-2 control-label">Topic</label>
                         <div class="col-sm-10">
                             <div class="dropdown">
-                                <g:select name="topic" from="${topiclist}" optionKey="id"/>
+                                <g:select name="topic" from="${topiclist}" optionKey="id" />
                             </div>
                         </div>
                     </div>
