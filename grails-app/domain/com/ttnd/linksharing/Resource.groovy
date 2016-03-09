@@ -64,13 +64,27 @@ abstract class Resource {
 
     }
 
-    static List<Resource> getRecentShare(){
+    static List<Resource> getRecentShare() {
         def result = Resource.createCriteria().list() {
-            createAlias('topic','t')
+            createAlias('topic', 't')
             eq('t.visibility', Visibility.PUBLIC)
             order('lastUpdated', 'desc')
             maxResults 5
         }
         result
+    }
+
+    static def checkResourceType(Long id) {
+        Resource resource = Resource.read(id)
+        if (resource.class.equals(LinkResource))
+            return "LinkResource"
+        else if (resource.class.equals(DocumentResource))
+            return "DocumentResource"
+    }
+
+    Boolean canViewBy(User user) {
+        if (this.topic.canViewedBy(user))
+            return true
+        else false
     }
 }

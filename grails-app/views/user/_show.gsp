@@ -15,7 +15,6 @@
                                  params='[topicId: topic.id]'>${topic.name}</g:link></ins></span>
             </div>
         </div>
-
         <div class="row">
             <div class="col-md-4">
                 <span class="text-muted">@${topic.createdBy}</span><br/>
@@ -24,17 +23,16 @@
 
             <div class="col-md-4 col-xs-6">
                 <span class="text-muted">Subscriptions</span><br/>
-                <span class="text-primary"><ls:subscriptionCount topicId="${topic.id}"/></span>
+                <span class="text-primary"><ls:subscriptionCount topicId="${topic.id}"></ls:subscriptionCount> </span>
             </div>
 
             <div class="col-md-4 col-xs-6">
                 <span class="text-muted">Posts</span><br/>
-                <span class="text-primary"><ls:resourcecCount topicId="${topic.id}"/> </span>
+                <span class="text-primary"><ls:resourcecCount topicId="${topic.id}"></ls:resourcecCount> </span>
             </div>
         </div>
     </div>
 </div>
-<g:if test="${session.user}">
 <div class="footer">
     <div class="row">
         <div class="col-md-4">
@@ -57,6 +55,5 @@
         </div>
     </div>
 </div>
-</g:if>
 <hr>
 

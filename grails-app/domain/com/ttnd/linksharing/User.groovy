@@ -9,8 +9,8 @@ class User {
     String firstName
     String lastName
     String confirmPassword
-    Boolean admin
-    Boolean active
+    Boolean admin = false
+    Boolean active = true
     Byte[] photo
     Date dateCreated
     Date lastUpdated
@@ -45,17 +45,38 @@ class User {
         photo(nullable: true)
         confirmPassword(bindable: true, nullable: true, blank: true, validator: { val, obj ->
             if (obj.password != val)
-                return 'wrong.password'
+                return 'com.ttnd.linksharing.User.confirmPassword.validator'
         })
     }
 
     List<Topic> getSubscribedTopic() {
-        List<Topic> topicList = Subscription.createCriteria().list {
+        List<Topic> topicList = Subscription.createCriteria().list() {
             projections {
                 property('topic')
             }
             eq('user', this)
+
         }
         topicList
+    }
+
+    static Boolean canDeleteResource(User user, Long ResourceId) {
+        Resource resource = Resource.read(ResourceId)
+        if (user.admin || resource.createdBy.id == user.id)
+            return true
+        else
+            return false
+    }
+
+    Integer getScore(Resource resource) {
+        ResourceRating resourceRating = ResourceRating.findByUserAndResource(this, resource)
+        return resourceRating.score
+    }
+
+    Boolean isSubscribed(Long topicId) {
+        if (Subscription.findByUserAndTopic(this, Topic.get(topicId)))
+            return true
+        else
+            return false
     }
 }

@@ -10,27 +10,35 @@
             <div class="modal-body">
                 <g:uploadForm class="form-horizontal" controller="resource" action="saveDocumentResource">
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Document</label>
+                        <div class="row">
+                            <label class="col-sm-2 control-label">Document</label>
 
-                        <div class="col-sm-8">
-                            <input type="file" id="doc" name="filePath"/>
+                            <div class="col-sm-10">
+                                <input type="file" id="doc" name="doc"/>
+                            </div>
                         </div>
-                        <br>
-                        <label class="col-sm-2 control-label">Description</label>
 
-                        <div class="col-sm-10">
-                            <g:textArea name="description" class="form-control" rows="5" id="comment"/>
-                        </div>
-                        <label class="col-sm-2 control-label">Topic</label>
+                        <div class="row">
+                            <label class="col-sm-2 control-label">Description</label>
 
-                        <div class="col-sm-10">
-                            <div class="dropdown">
-                                <g:select name="topicList" from="${topiclist}"/>
+                            <div class="col-sm-9">
+                                <g:textArea name="description" class="form-control" rows="5" id="comment"/>
+                            </div>
+                            <br>
+
+                            <div class="row">
+                                <label class="col-sm-2 control-label">Topic</label>
+
+                                <div class="col-sm-10">
+                                    <div class="dropdown">
+                                        <g:select name="topic" from="${topiclist}" optionKey="id"/>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <g:submitButton name="save" formaction="/resource/saveDocumentResource" value="submit" type="submit"
+                    <g:submitButton name="save" formaction="/DocumentResource/save" value="submit" type="submit"
                                     class="btn btn-primary"/>
                 </g:uploadForm>
             </div>
