@@ -19,6 +19,19 @@ class DocumentResource extends Resource {
     }
 
     String getFileName(){
-        filePath.substring(filePath.lastIndexOf('/'))
+        fileName=filePath.substring(filePath.lastIndexOf('/'))
+        return fileName
+    }
+
+    def deleteResource(){
+        String filePath=this.filePath
+        boolean fileDeleted=new File(filePath).delete()
+        if(fileDeleted){
+            this.delete(flush: true)
+            return true
+        }
+        else{
+            return false
+        }
     }
 }

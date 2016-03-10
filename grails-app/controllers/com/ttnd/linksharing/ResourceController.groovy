@@ -14,8 +14,10 @@ class ResourceController {
         if (User.canDeleteResource(session.user, id)) {
             Resource resource = Resource.load(id)
             try {
-                resource.delete(flush: true)
-                flash.message = "Resource deleted Successfully"
+                if (resource.deleteResource()) {
+                    flash.message = "Resource deleted Successfully"
+                } else
+                    flash.error = "Resource not deleted"
 
             } catch (Exception e) {
                 log.error "Error : ${e.message}"

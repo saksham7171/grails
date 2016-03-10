@@ -43,6 +43,7 @@ class User {
         active(nullable: true)
         admin(nullable: true)
         photo(nullable: true)
+        username(unique: true)
         confirmPassword(bindable: true, nullable: true, blank: true, validator: { val, obj ->
             if (obj.password != val)
                 return 'com.ttnd.linksharing.User.confirmPassword.validator'
@@ -70,11 +71,24 @@ class User {
 
     Integer getScore(Resource resource) {
         ResourceRating resourceRating = ResourceRating.findByUserAndResource(this, resource)
-        return resourceRating.score
+
+        return resourceRating?.score
     }
 
     Boolean isSubscribed(Long topicId) {
         if (Subscription.findByUserAndTopic(this, Topic.get(topicId)))
+            return true
+        else
+            return false
+    }
+
+    Subscription getSubscription(Long topicId) {
+        Subscription subscription = Subscription.findByUserAndTopic(this, Topic.get(topicId))
+        return subscription
+    }
+
+    Boolean equals(Topic topic) {
+        if (this == topic.createdBy)
             return true
         else
             return false

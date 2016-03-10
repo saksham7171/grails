@@ -37,13 +37,13 @@
     <div class="row">
         <div class="col-md-4">
             <div class="dropdown">
-                <g:render template="/shared/seriousnessSelect"/>
+                <ls:showSeriousness name="seriousness"  topicId="${topic.id}"/>
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="dropdown">
-                <g:render template="/shared/visibilitySelect"/>
+                <ls:showVisibility topicId="${topic.id}"/>
             </div>
         </div>
 

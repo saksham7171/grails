@@ -8,7 +8,7 @@
 <body>
 <div class="row">
     <div class="col-xs-5">
-        <div class="panel panel-default panel-primary ">
+        <div class="panel panel-default ">
             <div class="panel-heading">
                 Topic : ${topic.name}
             </div>
@@ -18,7 +18,7 @@
             </div>
         </div>
 
-        <div class="panel panel-default panel-primary">
+        <div class="panel panel-default">
             <div class="panel-heading">
                 Users : ${topic.name}
             </div>

@@ -11,8 +11,7 @@
         <a href="#"><div class="fa fa-google-plus inline"></div></a>
         <a href="/resource/show/${resource.id}" class="inline" style="float:right"><u>View Post</u></a>
         <ls:isRead id="${resource.id}"><u>&nbspMark as read</u></ls:isRead>
-        <a href="#" class="inline" style="float:right"><u>view full site</u></a>
-        <a href="#" class="inline" style="float:right"><u>Download</u></a>
+        <ls:resourceType id="${resource.id}" url="${resource}" />
     </div>
 </div>
 <hr>

@@ -12,7 +12,7 @@ h2 {
 
 .exceptionMessage {
 	margin: 10px;
-	border: 1px solid #000;
+	border: 1px solid red;
 	padding: 5px;
 	background-color: #E9E9E9;
 }

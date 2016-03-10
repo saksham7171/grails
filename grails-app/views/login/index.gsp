@@ -4,8 +4,6 @@
     <meta name="layout" content="main">
     <title></title>
 </head>
-
-<body>
     <div class="col-xs-6">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -38,11 +36,6 @@
         <g:render template="/login/register"/>
         %{--<g:renderErrors bean="${user}"/>--}%
     </div>
-
-
-
-
-
 
 </body>
 </html>

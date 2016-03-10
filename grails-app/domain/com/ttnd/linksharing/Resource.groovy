@@ -87,4 +87,8 @@ abstract class Resource {
             return true
         else false
     }
+
+    def deleteResource(){
+        log.info "Resource deleted"
+    }
 }
