@@ -13,13 +13,10 @@ class CustomTagLib {
         if (user && readingItem) {
             if (read) {
                 body = "<u>&nbspMark as Unread</u>"
-                out << g.link(body, controller: "readingItem", action: "changeIsRead",
-                        params: [resourceId: resource.id], style: "float:right")
-
             } else {
-                out << g.link(body, controller: "readingItem", action: "changeIsRead",
-                        params: [resourceId: attrs.id], style: "float:right")
+                body = "<u>&nbspMark as read</u>"
             }
+            out << g.link(body,name:"readingItem",class: "readingItem", style: "float:right",resourceId:resource.id)
         }
     }
 
@@ -97,7 +94,7 @@ class CustomTagLib {
         Subscription sub = user.getSubscription(attrs.topicId)
 
         if (sub) {
-            out << g.select(name: "seriou--------------------------------------sness", id: "seriousness", from: Seriousness.values(), value: sub.seriousness, class: "btn btn-sm btn-default dropdown-toggle seriousness", topicId: topicId)
+            out << g.select(name: "seriousness", id: "seriousness", from: Seriousness.values(), value: sub.seriousness, class: "btn btn-sm btn-default dropdown-toggle seriousness", topicId: topicId)
         }
     }
 

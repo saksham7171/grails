@@ -138,4 +138,34 @@ $(document).ready(function () {
         });
     });
 
+    $('.readingItem').click(function (e) {
+        e.preventDefault();
+        var self = $(this);
+        $.ajax({
+            url: "/readingItem/changeIsRead",
+            data: {resourceId: $(this).attr('resourceId')},
+            success: function (jsonObject) {
+                if (jsonObject) {
+                    if (jsonObject.message) {
+                        $('.json').text(jsonObject.message)
+                        $('.json').addClass('alert alert-success')
+                        if (jsonObject.status == true) {
+
+                            self.text("Mark As Unread")
+                        }
+                        else {
+                            self.text("Mark As Read")
+                        }
+                    }
+                    else if (jsonObject.error) {
+                        $('.json').text(jsonObject.error)
+                        $('.json').addClass('alert alert-error')
+
+
+                    }
+                }
+            }
+        })
+    });
+
 })

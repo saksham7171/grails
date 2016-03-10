@@ -10,9 +10,13 @@ class ReadingItemController {
         User user = session.user
         Map jsonObj = [:]
         ReadingItem readingItem = ReadingItem.findByUserAndResource(user, Resource.get(resourceId))
+        jsonObj.status=readingItem.isRead
+
         if (ReadingItem.executeUpdate("update ReadingItem set isRead=:isRead where id=:id",
                 [isRead: !readingItem.isRead, id: readingItem.id])) {
-            jsonObj.success = "Success"
+            jsonObj.status=!jsonObj.status
+
+            jsonObj.message = "Success"
         } else {
             jsonObj.error = "failure"
         }
