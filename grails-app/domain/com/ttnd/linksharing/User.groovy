@@ -54,7 +54,7 @@ class User {
             projections {
                 property('topic')
             }
-            eq('user.id', id)
+            eq('user', this)
         }
         topicList
     }

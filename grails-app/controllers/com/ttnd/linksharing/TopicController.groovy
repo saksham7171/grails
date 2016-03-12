@@ -13,7 +13,8 @@ class TopicController {
             flash.error = "Topic doesn't exists"
             redirect(controller: 'login', action: 'index')
         } else if (topic.visibility ==Visibility.PUBLIC)
-            render("public topic Success")
+            //render("public topic Success")
+            render view: "show"
         else {
             User user = session.user
             if (!Subscription.findByUserAndTopic(user, topic)) {

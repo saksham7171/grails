@@ -7,10 +7,14 @@ class LoginController {
     def index() {
         if (session.user)
             forward(controller: 'User', action: 'index')
-        else
-          return Resource.getTopPost()
-//        def resources=Resource.getTopPost()
+        else {
+            //return Resource.getTopPost()
+            def topPosts = Resource.getTopPost()
+            def recentShares=Resource.getRecentShare()
+
 //        render "failure"
+            render view: 'index', model: [topPosts: topPosts,recentShares:recentShares]
+        }
     }
 
     def logout() {
