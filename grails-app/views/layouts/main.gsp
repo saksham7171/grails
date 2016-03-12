@@ -11,9 +11,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <asset:stylesheet src="bootstrap.css"/>
     <asset:stylesheet src="font-awesome.min.css"/>
-   %{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  %{--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
---}%    <asset:javascript src="jquery-2.2.1.min.js"/>
+ --}%   <asset:javascript src="jquery-2.2.1.min.js"/>
     <asset:javascript src="bootstrap.min.js"/>
     <g:layoutHead/>
 </head>
@@ -26,10 +26,11 @@
             <div class="navbar-header">
                 <a class="navbar-brand navbar-left" href="#">
                     Link Sharing
-                </a>`
+                </a>
             </div>
 
             <form class="navbar-form pull-right">
+                <g:if test="${session.user}">
                 <a href="#"><span class="glyphicon glyphicon-search"></span></a>
                 <input type="text" class="form-control" placeholder="Search">
                 <a href="#topic" data-toggle="modal"><div class="glyphicon glyphicon-comment inline"></div></a>
@@ -50,6 +51,7 @@
                         <li><a href="/login/logout">Logout</a></li>
                     </ul>
                 </div>
+                </g:if>
             </form>
         </nav>
         <g:if test="${session.user}">
@@ -59,11 +61,23 @@
             <g:render template="/topic/email"/>
         </g:if>
 
+
         <g:if test="${flash.message}">
-            ${flash.message}
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                ${flash.message}
+            </div>
+
         </g:if>
+
+
+
         <g:if test="${flash.error}">
-            ${flash.error}
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                ${flash.error}
+            </div>
+
         </g:if>
 
         <g:layoutBody/>

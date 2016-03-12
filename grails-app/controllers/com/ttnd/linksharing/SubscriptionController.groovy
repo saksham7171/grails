@@ -13,25 +13,24 @@ class SubscriptionController {
             Subscription subscription = new Subscription(topic: topic, user: session.user)
             if (subscription.validate()) {
                 subscription.save(flush: true)
-                render("subscription saved successfully")
+                flash.message = "subscription saved successfully"
             } else {
-                render("subscription cant be saved")
                 flash.error = subscription.errors.allErrors
             }
         }
-
-
+        redirect(uri: '/')
     }
 
     def delete(Long id) {
         Subscription subscription = Subscription.load(id)
         try {
-            subscription.delete()
-            render("Susbcription deleted successfully")
+            subscription.delete(flush: true)
+            flash.message = "Susbcription deleted successfully"
         } catch (Exception e) {
             log.error "Error : ${e.message}"
-            render("Subscription not found")
+            flash.error = "Subscription not found"
         }
+        redirect(uri: '/')
     }
 
     def update(Long id, String seriousness) {

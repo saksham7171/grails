@@ -122,3 +122,5 @@ log4j.main = {
 
 
 }
+
+linksharing.documents.folderPath="${userHome}/var/www/linksharing"

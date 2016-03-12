@@ -11,7 +11,7 @@
             <div class="panel-heading">
                 Recent Shares
             </div>
-            <div class="panel-body" style="overflow-y:auto;height: 250px">
+            <div class="panel-body" style="overflow-y:auto;height: 320px">
             <g:each in="${recentShares}" var="recentShare">
                 <g:render template="/shared/posts" model="[post:recentShare]"/>
                 <hr>
@@ -23,7 +23,7 @@
                 <div class="panel-heading">
                     Top Posts
                 </div>
-                <div class="panel-body" style="overflow-y:auto;height: 250px">
+                <div class="panel-body" style="overflow-y:auto;height: 320px">
                     <g:each in="${topPosts}" var="topPost">
                         <g:render template="/shared/posts" model="[post:topPost]"/>
                         <hr>
@@ -34,8 +34,9 @@
 
 
     <div class="col-xs-5 col-xs-offset-1">
-        <g:render template="login"/>
-        <g:render template="register"/>
+        <g:render template="/login/login"/>
+        <g:render template="/login/register"/>
+        %{--<g:renderErrors bean="${user}"/>--}%
     </div>
 
 

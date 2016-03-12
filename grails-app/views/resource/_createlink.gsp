@@ -19,12 +19,12 @@
                         <label class="col-sm-2 control-label">Topic</label>
                         <div class="col-sm-10">
                             <div class="dropdown">
-                                <g:select name="topic" from="${topiclist}" optionKey="id"/>
+                                <g:select name="topic" from="${topiclist}" optionKey=""/>
                             </div>
                         </div>
                     </div>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <g:submitButton name="save" type="submit" formaction="/resource/saveLinkResource" value="Save" class="btn btn-primary"/>
+                    <g:submitButton name="save" type="submit" formaction="/LinkResource/save" value="Save" class="btn btn-primary"/>
                 </g:form>
             </div>
             <div class="modal-footer">

@@ -1,6 +1,7 @@
 package com.ttnd.linksharing
 
-import com.ttnd.linksharing.constants.Constants
+import com.ttnd.linksharing.CO.UserCO
+
 
 class LoginController {
 
@@ -10,10 +11,8 @@ class LoginController {
         else {
             //return Resource.getTopPost()
             def topPosts = Resource.getTopPost()
-            def recentShares=Resource.getRecentShare()
-
-//        render "failure"
-            render view: 'index', model: [topPosts: topPosts,recentShares:recentShares]
+            def recentShares = Resource.getRecentShare()
+            render view: 'index', model: [topPosts: topPosts, recentShares: recentShares]
         }
     }
 
@@ -37,14 +36,5 @@ class LoginController {
         render(flash.error)
     }
 
-    def register() {
-        User user = new User(email: "dummmy@ttnd.com", username: "dummy", password: Constants.password,
-                firstName: "dummyfirst", lastName: "dummylast", admin: false, active: true, confirmPassword: Constants.password)
-        if(!user.save()){
-            flash.error="User can't be stored"
-            render(user.errors.allErrors.collect{message(error: it)}.join(","))
-        }
-        else
-            render "Success"
-    }
+
 }

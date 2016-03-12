@@ -11,16 +11,18 @@ class ResourceController {
     }
 
     def delete(Long id) {
-        Resource resource = Resource.load(id)
-        try {
+        if (User.canDeleteResource(session.user, id)) {
+            Resource resource = Resource.load(id)
+            try {
+                resource.delete(flush: true)
+                flash.message = "Resource deleted Successfully"
 
-            if (!resource.delete()) {
-                render("Resource deleted with id : $id")
+            } catch (Exception e) {
+                log.error "Error : ${e.message}"
+                render "Resource can't be deleted"
             }
-        } catch (Exception e) {
-            log.error "Error : ${e.message}"
-            render "Resource can't be deleted"
-        }
+        } else flash.error = "Resource deletion not allowed"
+        redirect(uri: '/')
     }
 
     def search(ResourceSearchCO co) {
@@ -28,47 +30,42 @@ class ResourceController {
             co.visibility = Visibility.PUBLIC
             render(Resource.search(co).list())
         }
+        flash.error = "No criteria provided"
     }
 
     def show(Long id) {
-        render("show rating")
-        Resource resource=Resource.get(id)
+        List<Topic> topics = Topic.getTrendingTopics()
+        Resource resource = Resource.get(id)
         RatingInfoVO vo = resource.ratingInfo
         vo
+        if (resource.canViewBy(session.user)) {
+            render view: "show", model: [resource: resource, topics: topics]
+        }
 //        render(vo.totalVotes + " " + vo.averageScore + " " + vo.totalScore)
     }
 
-    def showTrendingTopics(){
-        List<TopicVO> list=Topic.getTrendingTopics()
+    def showTrendingTopics() {
+        List<TopicVO> list = Topic.getTrendingTopics()
         list
     }
 
-    def saveLinkResource(LinkResource linkResource){
-        linkResource.createdBy=session.user
+    private def addToReadingItems(Resource resource) {
 
-        if(linkResource.validate()){
-            linkResource.save(flush:true)
-            flash.message="Resource saved"
+        ReadingItem readingItem
+        Topic topic = resource.topic
+        List<User> subscribedUsers = topic.getSubscribedUsers()
+        subscribedUsers.each { user ->
+            if (user.id == resource.createdBy.id) {
+                readingItem = new ReadingItem(user: user, resource: resource, isRead: true)
+            } else {
+                readingItem = new ReadingItem(user: user, resource: resource, isRead: false)
+            }
+            if (readingItem.save(flush: true)) {
+                println "added to reading items"
+            }
+
         }
-        else{
-            flash.error=linkResource.errors.allErrors.collect{message(error: it)}
-        }
-        redirect(controller: 'user',action: 'index')
+
+
     }
-
-    def saveDocumentResource(String description,String topicName,String filePath){
-        User user=session.user
-        Topic topic=Topic.findByNameAndCreatedBy(topicName,user)
-        Resource documentResource=new DocumentResource(description: description,filePath: filePath,createdBy: user,topic: topic)
-        if(documentResource.validate()){
-            documentResource.save(flush:true)
-            flash.message="Resource saved"
-            render(flash.message)
-        }
-        else{
-            flash.error="Resource cant be saved"
-            redirect(controller: 'user',action: 'index')
-        }
-    }
-
 }

@@ -4,11 +4,12 @@ class ReadingItemController {
 
     def index() {}
 
-    def changeIsRead(Long id, Boolean isRead) {
-        if (ReadingItem.executeUpdate("update ReadingItem set isRead=:isRead where id=:id", [isRead: isRead, id: id])) {
-            render "success"
-        } else {
-            render "error"
+    def changeIsRead(Long resourceId) {
+        User user = session.user
+        ReadingItem readingItem = ReadingItem.findByUserAndResource(user, Resource.get(resourceId))
+        if (ReadingItem.executeUpdate("update ReadingItem set isRead=:isRead where id=:id",
+                [isRead: !readingItem.isRead, id: readingItem.id])) {
         }
+        redirect(uri: '/')
     }
 }

@@ -34,11 +34,11 @@ class Topic {
     }
 
     String toString() {
-        return "$name Createdby:$createdBy"
+        return "$name"
     }
 
     static List<TopicVO> getTrendingTopics() {
-        List<TopicVO> topicVOList=[]
+        List<TopicVO> topicVOList = []
 
         List result = Resource.createCriteria().list {
             projections {
@@ -50,38 +50,42 @@ class Topic {
                 property('t.createdBy')
             }
             maxResults 5
-            eq('t.visibility',Visibility.PUBLIC)
+            eq('t.visibility', Visibility.PUBLIC)
             order('t.name', 'desc')
             order('rcount', 'desc')
         }
 
-        result.each{list->
-          topicVOList.add(new TopicVO(id:list[0],name: list[1],visibility: list[2],count:list[3],createdBy: list[4]))
+        result.each { list ->
+            topicVOList.add(new TopicVO(id: list[0], name: list[1], visibility: list[2], count: list[3], createdBy: list[4]))
         }
         topicVOList
     }
 
-    static List<UserVO> getSubscribedUsers(Topic topic) {
-        List<UserVO> subscribedUsers = []
-        Subscription.createCriteria().list {
-            projections {
-                'user' {
-                    property('id')
-                    property('userName')
-                    property('firstName')
-                    property('lastName')
-                    property('email')
-                    property('photo')
-                    property('isAdmin')
-                    property('isActive')
-                }
-                eq('topic.id',topic.id)
-            }
-        }?.each {
-            subscribedUsers.add(new UserVO(id: it[0], name: it[1], firstName: it[2], lastName: it[3], email: it[4], photo:
-                    it[5], isAdmin: it[6], isActive: it[7]))
-        }
-        return subscribedUsers
-    }
-}
+    List<User> getSubscribedUsers() {
 
+        List users = Subscription.createCriteria().list {
+            projections {
+                property('user')
+            }
+            'topic' {
+                eq('id', this.id)
+            }
+        }
+        users
+    }
+
+    Boolean isPublic() {
+        if (this.visibility == Visibility.PUBLIC)
+            return true
+        else
+            return false
+    }
+
+    Boolean canViewedBy(User user) {
+        if (this.isPublic() || user.admin || Subscription.findByUserAndTopic(user, this))
+            return true
+        else
+            return false
+    }
+
+}
