@@ -4,7 +4,8 @@
     </div>
 
     <div class="col-xs-10">
-        ${post.createdBy.username}<p class="text-muted inline">@${post.createdBy.username} 5min</p>
+        <a href="${createLink(controller: "user",action: "profile", params: [userId: post.topic.createdBy.id])}">${post.topic.createdBy.getName()}</a>
+        <p class="text-muted inline">@${post.createdBy.username} 5min</p>
 
         <g:link controller="topic" action="show" style="float:right" params="[topicId:post.topicId,visibility:post.topic.visibility.toString()]">${post.topic}</g:link>
 

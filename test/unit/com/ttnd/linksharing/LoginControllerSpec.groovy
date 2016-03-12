@@ -12,12 +12,6 @@ import spock.lang.Specification
 @Mock([User])
 class LoginControllerSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
     def "check if user session exists"() {
         given: "a session user exists"
         session["user"] = User.load(1)

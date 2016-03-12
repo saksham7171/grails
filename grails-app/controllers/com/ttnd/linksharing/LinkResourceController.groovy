@@ -2,17 +2,16 @@ package com.ttnd.linksharing
 
 class LinkResourceController extends ResourceController {
 
-    def index() {}
-    def save(LinkResource linkResource){
-        linkResource.createdBy=session.user
-        if(linkResource.validate()){
-            linkResource.save(flush:true)
-            flash.message="Resource saved"
+
+    def save(LinkResource linkResource) {
+        linkResource.createdBy = session.user
+        if (linkResource.validate()) {
+            linkResource.save(flush: true)
+            flash.message = "Resource saved Successfully"
+        } else {
+            flash.error = "Resource Can't be Saved!! Please enter a valid Url"
         }
-        else{
-            flash.error=linkResource.errors.allErrors.collect{message(error: it)}
-        }
-        redirect(controller: 'user',action: 'index')
+        redirect(controller: 'user', action: 'index')
     }
 
 }

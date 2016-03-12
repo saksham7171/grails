@@ -1,9 +1,20 @@
 package com.ttnd.linksharing
 
 enum Seriousness {
-    SERIOUS, VERY_SERIOUS, CASUAL
+    SERIOUS('Serious'), VERY_SERIOUS('Very Serious'), CASUAL('Casual')
+
+    final String value
 
     static convert(String s) {
         return valueOf(s.toUpperCase())
     }
+
+
+    Seriousness(String value) {
+        this.value = value
+    }
+
+    String toString() { value }
+
+    String getKey() { name() }
 }

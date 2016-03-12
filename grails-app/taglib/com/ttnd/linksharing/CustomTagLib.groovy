@@ -14,9 +14,9 @@ class CustomTagLib {
             if (read) {
                 body = "<u>&nbspMark as Unread</u>"
             } else {
-                body = "<u>&nbspMark as read</u>"
+                body = "<u>&nbspMark as Read</u>"
             }
-            out << g.link(body,name:"readingItem",class: "readingItem", style: "float:right",resourceId:resource.id)
+            out << g.link(body, name: "readingItem", class: "readingItem", style: "float:right", resourceId: resource.id)
         }
     }
 
@@ -44,22 +44,25 @@ class CustomTagLib {
     def subscriptionCount = { attrs, body ->
         Long userId = attrs.userId
         Long topicId = attrs.topicId
-        if (userId)
+        if (userId) {
             out << Subscription.countByUser(User.load(userId))
-        else if (topicId)
+        } else if (topicId) {
             out << Subscription.countByTopic(Topic.load(topicId))
+        }
     }
 
     def resourcecCount = { attrs, body ->
         Long topicId = attrs.topicId
-        if (topicId)
+        if (topicId) {
             out << Resource.countByTopic(Topic.load(topicId))
+        }
     }
 
     def topicCount = { attrs, body ->
         Long userId = attrs.userId
-        if (userId)
+        if (userId) {
             out << Topic.countByCreatedBy(User.load(userId))
+        }
     }
 
     def showSubscribe = { attrs, body ->
@@ -69,9 +72,10 @@ class CustomTagLib {
         if (user && topicId) {
             if (user.isSubscribed(topicId)) {
                 Subscription subscription = Subscription.findByUserAndTopic(user, Topic.get(topicId))
-                out << "<a href='${createLink(controller: 'subscription', action: 'delete', params: [id: subscription.id, userId: user.id])}'><u>Unsubscribe</u></a>"
-            } else
-                out << "<a href='${createLink(controller: 'subscription', action: 'save', params: [id: topicId, userId: user.id])}'><u>Subscribe</u></a>"
+                out << "<a href='${createLink(controller: 'subscription', action: 'delete', params: [id: subscription.id])}'><u>Unsubscribe</u></a>"
+            } else {
+                out << "<a href='${createLink(controller: 'subscription', action: 'save', params: [id: topicId])}'><u>Subscribe</u></a>"
+            }
         }
     }
 
@@ -83,26 +87,30 @@ class CustomTagLib {
         User user = User.get(attrs.userId)
         Topic topic = Topic.get(attrs.topicId)
 
-        if (user.admin || user.equals(topic))
+        if (user.admin || user.equals(topic)) {
             out << body()
+        }
     }
 
     def showSeriousness = { attrs, body ->
         Long topicId = attrs.topicId
-        Topic topic = Topic.get(topicId)
         User user = session.user
         Subscription sub = user.getSubscription(attrs.topicId)
 
         if (sub) {
-            out << g.select(name: "seriousness", id: "seriousness", from: Seriousness.values(), value: sub.seriousness, class: "btn btn-sm btn-default dropdown-toggle seriousness", topicId: topicId)
+            out << g.select(name: "seriousness", id: "seriousness", from: Seriousness.values(), value: sub.seriousness, optionKey: "key", class: "btn btn-sm btn-default dropdown-toggle seriousness", topicId: topicId)
         }
     }
 
     def showVisibility = { attrs, body ->
         Long topicId = attrs.topicId
         Topic topic = Topic.get(topicId)
+        out << g.select(name: "visibility", id: "visibility", from: Visibility.values(), value: topic.visibility, optionKey: "key", class: "btn btn-sm btn-default dropdown-toggle visibility", topicName: topic.name)
+    }
+
+    def showTopicList = { attrs, body ->
         User user = session.user
-        out << g.select(name: "visibility", id: "visibility", from: Visibility.values(), value: topic.visibility, class: "btn btn-sm btn-default dropdown-toggle visibility", topicName: topic.name)
+        out << g.select(name: "topic", from: user.getSubscribedTopic(), optionKey: "id", class: "btn btn-default")
     }
 }
 

@@ -4,11 +4,6 @@ import grails.test.spock.IntegrationSpec
 
 class ReadingItemControllerIntegrationSpec extends IntegrationSpec {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
 
     def "check chnage is read"() {
         setup:

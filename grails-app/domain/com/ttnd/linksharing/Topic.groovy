@@ -1,7 +1,6 @@
 package com.ttnd.linksharing
 
 import com.ttnd.linksharing.VO.TopicVO
-import com.ttnd.linksharing.VO.UserVO
 
 
 class Topic {
@@ -28,8 +27,9 @@ class Topic {
             Subscription subscription = new Subscription(user: this.createdBy, topic: this, seriousness: Seriousness.VERY_SERIOUS)
             if (subscription.save())
                 log.info "$subscription saved Successfully"
-            else
+            else {
                 log.info "Error while saving subscriptions"
+            }
         }
     }
 
@@ -75,17 +75,11 @@ class Topic {
     }
 
     Boolean isPublic() {
-        if (this.visibility == Visibility.PUBLIC)
-            return true
-        else
-            return false
+        return (this.visibility == Visibility.PUBLIC) ? true : false
     }
 
     Boolean canViewedBy(User user) {
-        if (this.isPublic() || user.admin || Subscription.findByUserAndTopic(user, this))
-            return true
-        else
-            return false
+        return ((this.isPublic() || user.admin) || Subscription.findByUserAndTopic(user, this)) ? true : false
     }
 
 }

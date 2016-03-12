@@ -1,15 +1,11 @@
 package com.ttnd.linksharing
 
-import com.ttnd.linksharing.CO.UserCO
-import grails.converters.JSON
-
-
 class LoginController {
 
     def index() {
-        if (session.user)
-            forward(controller: 'User', action: 'index')
-        else {
+        if (session.user) {
+            redirect(controller: 'user', action: 'index')
+        } else {
             //return Resource.getTopPost()
             def topPosts = Resource.getTopPost()
             def recentShares = Resource.getRecentShare()
@@ -30,11 +26,13 @@ class LoginController {
             if (user.active) {
                 session["user"] = user
                 redirect(controller: 'User', action: 'index')
-            } else
+            } else {
                 flash.error = "User is not active"
-        } else
+            }
+        } else {
             flash.error = "User is not found"
-        render(flash.error)
+            redirect action: 'index'
+        }
     }
 
     def validateEmail() {
@@ -43,8 +41,10 @@ class LoginController {
 
     def validateUserName() {
         render !User.countByUsername(params.username) as Boolean
+    }
 
-
+    def existUserName() {
+        render User.countByUsername(params.username) as Boolean
     }
 
 }

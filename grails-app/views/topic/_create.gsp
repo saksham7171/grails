@@ -20,13 +20,10 @@
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <g:submitButton formaction="/topic/save" type="submit" name="submit" value="save" id="createTopicBtn" class="btn btn-primary"/>
-
+                    <div class="modal-footer">
+                    <g:submitButton formaction="/topic/save" type="submit" name="submit" value="Create" id="createTopicBtn" class="btn btn-primary btn-block"/>
+                    </div>
                 </g:form>
-            </div>
-            <div class="modal-footer">
-
             </div>
         </div>
     </div>

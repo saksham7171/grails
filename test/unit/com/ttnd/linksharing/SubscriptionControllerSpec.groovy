@@ -12,11 +12,6 @@ import spock.lang.Specification
 @Mock([Topic, Subscription, User])
 class SubscriptionControllerSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
 
     def "check save subscription if topic doesn't exist"() {
         when:

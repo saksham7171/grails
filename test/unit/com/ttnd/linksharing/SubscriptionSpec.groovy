@@ -27,12 +27,12 @@ class SubscriptionSpec extends Specification {
         4   | new Topic() | new User() | null               | false
     }
 
-    def "validating duplicate subscription"(){
+    def "validating duplicate subscription"() {
         given:
-        User user=new User()
-        Topic topic=new Topic()
-        Subscription sub=new Subscription(topic: topic,user: user,seriousness: Seriousness.VERY_SERIOUS)
-        Subscription sub1=new Subscription(topic: topic,user: user,seriousness: Seriousness.VERY_SERIOUS)
+        User user = new User()
+        Topic topic = new Topic()
+        Subscription sub = new Subscription(topic: topic, user: user, seriousness: Seriousness.VERY_SERIOUS)
+        Subscription sub1 = new Subscription(topic: topic, user: user, seriousness: Seriousness.VERY_SERIOUS)
 
         when:
         sub.save(flush: true)

@@ -1,7 +1,15 @@
 package com.ttnd.linksharing
 
-/**
- * Created by saksham on 11/3/16.
- */
-class UserStatus {
+enum UserStatus {
+    All_USER('All User'), Active('Active'), Inactive('Inactive')
+
+    final String value
+
+    UserStatus(String value) {
+        this.value = value
+    }
+
+    String toString() { value }
+
+    String getKey() { name() }
 }

@@ -49,21 +49,23 @@
                         ${session.user} <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#">Users</a></li>
-                        <li><a href="/login/logout">Logout</a></li>
+                        <li><a href="${createLink(controller: "user",action: "profile", params: [userId: session.user.id])}">Profile</a></li>
+                        <g:if test="${session.user.admin}">
+                            <li><a href="/user/list">Users</a></li>
+                        </g:if>
+                        <li><a href="${createLink(controller: "login",action: "logout")}">Logout</a></li>
                     </ul>
                 </div>
                 </g:if>
             </form>
         </nav>
+        <g:render template="/login/forgotPassword"/>
         <g:if test="${session.user}">
             <g:render template="/topic/create"/>
             <g:render template="/resource/createdoc"/>
             <g:render template="/resource/createlink"/>
             <g:render template="/topic/email"/>
         </g:if>
-
 
         <g:if test="${flash.message}">
             <div class="alert alert-success alert-dismissible" role="alert">
@@ -72,8 +74,6 @@
             </div>
 
         </g:if>
-
-
 
         <g:if test="${flash.error}">
             <div class="alert alert-danger alert-dismissible" role="alert">

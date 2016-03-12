@@ -13,7 +13,7 @@
                 Topic : ${topic.name}
             </div>
 
-            <div class="panel-body" ">
+            <div class="panel-body">
                     <g:render template="/user/trendingTopics" model="[topic:topic]"/>
             </div>
         </div>
@@ -38,9 +38,7 @@
             </div>
 
             <div class="panel-body" style="overflow-y: auto;height: 620px">
-                <g:each in="${topic.resources}" var="resource">
-                    <g:render template="topicPosts" model="[resource: resource]"/>
-                </g:each>
+                    <g:render template="topicPosts" model="[resources: topic.resources]"/>
             </div>
         </div>
 

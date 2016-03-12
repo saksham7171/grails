@@ -5,11 +5,6 @@ import grails.test.spock.IntegrationSpec
 
 class ResourceControllerIntegrationSpec extends IntegrationSpec {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
 
     def "check trending topic"() {
         setup:

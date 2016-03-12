@@ -16,14 +16,17 @@ class ResourceController {
             try {
                 if (resource.deleteResource()) {
                     flash.message = "Resource deleted Successfully"
-                } else
+                } else {
                     flash.error = "Resource not deleted"
+                }
 
             } catch (Exception e) {
                 log.error "Error : ${e.message}"
                 render "Resource can't be deleted"
             }
-        } else flash.error = "Resource deletion not allowed"
+        } else {
+            flash.error = "Resource deletion not allowed"
+        }
         redirect(uri: '/')
     }
 
@@ -62,12 +65,7 @@ class ResourceController {
             } else {
                 readingItem = new ReadingItem(user: user, resource: resource, isRead: false)
             }
-            if (readingItem.save(flush: true)) {
-                println "added to reading items"
-            }
-
+            readingItem.save(flush: true)
         }
-
-
     }
 }

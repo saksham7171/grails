@@ -14,10 +14,10 @@
                             <label class="col-sm-2 control-label">Document</label>
 
                             <div class="col-sm-10">
-                                <input type="file" id="doc" name="doc"/>
+                                <input type="file" class="btn btn-primary" id="doc" name="doc"/>
                             </div>
                         </div>
-
+<br>
                         <div class="row">
                             <label class="col-sm-2 control-label">Description</label>
 
@@ -29,23 +29,23 @@
                             <div class="row">
                                 <label class="col-sm-2 control-label">Topic</label>
 
-                                <div class="col-sm-10">
-                                    <div class="dropdown">
-                                        <g:select name="topic" from="${topicList}" optionKey="id"/>
-                                    </div>
+                                <div class="col-sm-9">
+
+                                    <ls:showTopicList/>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <g:submitButton name="save" formaction="/DocumentResource/save" value="submit" type="submit"
-                                    class="btn btn-primary"/>
+                    <div class="modal-footer">
+
+
+                    <g:submitButton name="save" formaction="/DocumentResource/save" value="Share" type="submit"
+                                    class="btn btn-primary btn-block"/>
+                    </div>
                 </g:uploadForm>
             </div>
 
-            <div class="modal-footer">
 
-            </div>
         </div>
     </div>
 </div>

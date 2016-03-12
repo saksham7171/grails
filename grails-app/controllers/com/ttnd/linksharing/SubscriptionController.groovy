@@ -10,15 +10,15 @@ class SubscriptionController {
     }
 
     def save(Long id) {
-        Map jsonObj = [:]
+        User user = session.user
         Topic topic = Topic.get(id)
         if (topic ?: render("Topic not found")) {
-            Subscription subscription = new Subscription(topic: topic, user: session.user)
+            Subscription subscription = new Subscription(topic: topic, user: user)
             if (subscription.validate()) {
                 subscription.save(flush: true)
-                jsonObj.message = "subscription saved successfully"
+                flash.message = "subscription saved successfully"
             } else {
-                jsonObj.error = subscription.errors.allErrors
+                flash.error = "Can't Subscribe"
             }
         }
         redirect(uri: '/')
@@ -35,15 +35,15 @@ class SubscriptionController {
                 log.error "Error : ${e.message}"
                 flash.error = "Subscription not found"
             }
-        }else{
-            flash.error="Can't delete Created Topics session"
+        } else {
+            flash.error = "Can't Unsubscribe Created Topic"
         }
         redirect(uri: '/')
     }
 
     def update(Long id, String seriousness) {
         Map jsonObj = [:]
-        Subscription subscription = Subscription.findByUserAndTopic(session.user,Topic.load(id))
+        Subscription subscription = Subscription.findByUserAndTopic(session.user, Topic.load(id))
         if (subscription ?: render("Subscription not found")) {
             subscription.seriousness = Seriousness.convert(seriousness)
             if (subscription.save(flush: true)) {

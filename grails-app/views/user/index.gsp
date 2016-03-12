@@ -6,10 +6,7 @@
 </head>
 
 <body>
-<div>
 
-
-</div>
 <div class="row">
     <div class="col-xs-5">
         <g:render template="user" model="[user:user]"></g:render>

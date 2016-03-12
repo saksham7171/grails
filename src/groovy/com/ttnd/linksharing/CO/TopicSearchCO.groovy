@@ -1,7 +1,13 @@
 package com.ttnd.linksharing.CO
 
-/**
- * Created by saksham on 11/3/16.
- */
-class TopicSearchCO {
+import com.ttnd.linksharing.User
+import com.ttnd.linksharing.Visibility
+
+class TopicSearchCO extends SearchCO {
+    Long userId
+    Visibility visibility
+
+    User getUser() {
+        return User.get(userId)
+    }
 }

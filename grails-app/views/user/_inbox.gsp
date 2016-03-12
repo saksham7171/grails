@@ -12,7 +12,7 @@
         <a href="#"><div class="fa fa-twitter inline"></div></a>
         <a href="#"><div class="fa fa-google-plus inline"></div></a>
         <a href="/resource/show/${item.resource.id}" class="inline" style="float:right"><u>View Post</u></a>
-        <ls:isRead id="${item.resource.id}"><u>&nbspMark as read</u></ls:isRead>
+        <ls:isRead id="${item.resource.id}"><u>&nbspMark as Read</u></ls:isRead>
         <ls:resourceType id="${item.resource.id}" url="${item.resource}" />
     </div>
 </div>

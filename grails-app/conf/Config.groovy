@@ -124,3 +124,16 @@ log4j.main = {
 }
 
 linksharing.documents.folderPath="${userHome}/var/www/linksharing"
+grails.serverBaseURL = "http://localhost:8080"
+grails {
+    mail {
+        host = "smtp.gmail.com"
+        port = 465
+        username = "linksharing7171@gmail.com"
+        password = "linksharing"
+        props = ["mail.smtp.auth":"true",
+                 "mail.smtp.socketFactory.port":"465",
+                 "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+                 "mail.smtp.socketFactory.fallback":"false"]
+    }
+}
