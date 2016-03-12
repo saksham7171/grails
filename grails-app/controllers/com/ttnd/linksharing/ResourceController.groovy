@@ -34,12 +34,13 @@ class ResourceController {
         render("show rating")
         Resource resource=Resource.get(id)
         RatingInfoVO vo = resource.ratingInfo
-        render(vo.totalVotes + " " + vo.averageScore + " " + vo.totalScore)
+        vo
+//        render(vo.totalVotes + " " + vo.averageScore + " " + vo.totalScore)
     }
 
     def showTrendingTopics(){
         List<TopicVO> list=Topic.getTrendingTopics()
-        render list
+        list
     }
 
     def saveLinkResource(LinkResource linkResource){
