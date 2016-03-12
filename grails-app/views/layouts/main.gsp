@@ -13,8 +13,12 @@
     <asset:stylesheet src="font-awesome.min.css"/>
   %{--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
- --}%   <asset:javascript src="jquery-2.2.1.min.js"/>
+ --}%
+    <asset:javascript src="jquery-2.2.1.min.js"/>
     <asset:javascript src="bootstrap.min.js"/>
+    <asset:javascript src="application.js"/>
+    <asset:javascript src="jquery.validate.min.js"/>
+    <asset:javascript src="additional-methods.min.js"/>
     <g:layoutHead/>
 </head>
 
@@ -24,7 +28,7 @@
     <div class="container">
         <nav class="navbar navbar-default">
             <div class="navbar-header">
-                <a class="navbar-brand navbar-left" href="#">
+                <a class="navbar-brand navbar-left" href="/">
                     Link Sharing
                 </a>
             </div>
@@ -47,7 +51,6 @@
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                         <li><a href="#">Profile</a></li>
                         <li><a href="#">Users</a></li>
-                        <li><a href="#">Posts</a></li>
                         <li><a href="/login/logout">Logout</a></li>
                     </ul>
                 </div>
@@ -79,7 +82,8 @@
             </div>
 
         </g:if>
-
+            <div class="json" role="alert" style="display: none">
+            </div>
         <g:layoutBody/>
     </div>
 </div>

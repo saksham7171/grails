@@ -4,7 +4,7 @@
     </div>
 
     <div class="panel-body">
-<g:uploadForm class="form-horizontal" controller="user" action="register">
+<g:uploadForm name="registration" class="form-horizontal" controller="user" action="register">
     <div class="form-group">
         <label class="col-xs-3 control-label">First Name</label>
 
@@ -87,5 +87,4 @@
 </div>
 </g:uploadForm>
 
-</div>
 </div>

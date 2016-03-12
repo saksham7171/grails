@@ -29,34 +29,36 @@
 
             <div class="col-md-4 col-xs-6">
                 <span class="text-muted">Posts</span><br/>
-                <span class="text-primary"><ls:resourcecCount topicId="${topic.id}"/> </span>
+                <span class="text-primary"><ls:resourcecCount topicId="${topic.id}"/></span>
             </div>
         </div>
     </div>
 </div>
 <g:if test="${session.user}">
-<div class="footer">
-    <div class="row">
-        <div class="col-md-4">
-            <div class="dropdown">
-                <g:render template="/shared/seriousnessSelect"/>
+    <div class="footer">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="dropdown">
+                    <ls:showSeriousness topicId="${topic.id}"/>
+                </div>
             </div>
-        </div>
 
-        <div class="col-md-4">
-            <div class="dropdown">
-                <g:render template="/shared/visibilitySelect"/>
-            </div>
-        </div>
+            <ls:canUpdateTopic userId="${session.user.id}" topicId="${topic.id}">
+                <div class="col-md-4">
+                    <div class="dropdown">
+                        <ls:showVisibility topicId="${topic.id}"/>
+                    </div>
+                </div>
 
-        <div class="col-md-4">
-            <a href="#"><span class="glyphicon glyphicon-envelope"
-                              style="font-size:20px"></span></a>
-            <a href="#"><span class="fa fa-file-o" style="font-size:20px"></span></a>
-            <a href="#"><span class="fa fa-trash" style="font-size:20px"></span></a>
+                <div class="col-md-4">
+                    <a href="#"><span class="glyphicon glyphicon-envelope"
+                                      style="font-size:20px"></span></a>
+                    <a href="#"><span class="fa fa-file-o" style="font-size:20px"></span></a>
+                    <a href="#"><span class="fa fa-trash" style="font-size:20px"></span></a>
+                </div>
+            </ls:canUpdateTopic>
         </div>
     </div>
-</div>
 </g:if>
 <hr>
 

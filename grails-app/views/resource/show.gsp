@@ -21,7 +21,7 @@
         </div>
 
 <div class="col-md-4 col-md-offset-1">
-    <span class="text-primary"><ins>${resource.topic}</ins></span>
+    <g:link controller="topic" action="show" style="float:right" params="[topicId:resource.topicId,visibility:resource.topic.visibility.toString()]">${resource.topic}</g:link>
 </div>
 </div>
 

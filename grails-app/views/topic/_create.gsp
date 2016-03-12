@@ -11,17 +11,17 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Name</label>
                         <div class="col-sm-10">
-                            <g:textField name="name" class="form-control" id="name" placeholder="name" />
+                            <g:textField name="topicName" class="form-control"  id="topicName" placeholder="name" />
                         </div>
                         <label class="col-sm-2 control-label">Visibility</label>
                         <div class="col-sm-10">
                             <div class="dropdown">
-                                <g:select class="dropdown-toggle btn" name="visibility" from="${com.ttnd.linksharing.Visibility.values()}"/>
+                                <g:select class="dropdown-toggle btn" name="visibility" id="visibility" from="${com.ttnd.linksharing.Visibility.values()}"/>
                             </div>
                         </div>
                     </div>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <g:submitButton formaction="/topic/save" type="submit" name="submit" value="save" class="btn btn-primary"/>
+                    <g:submitButton formaction="/topic/save" type="submit" name="submit" value="save" id="createTopicBtn" class="btn btn-primary"/>
 
                 </g:form>
             </div>

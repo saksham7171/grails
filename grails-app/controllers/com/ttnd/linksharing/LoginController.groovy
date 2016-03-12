@@ -1,6 +1,7 @@
 package com.ttnd.linksharing
 
 import com.ttnd.linksharing.CO.UserCO
+import grails.converters.JSON
 
 
 class LoginController {
@@ -36,5 +37,14 @@ class LoginController {
         render(flash.error)
     }
 
+    def validateEmail() {
+        render !User.countByEmail(params.email) as Boolean
+    }
+
+    def validateUserName() {
+        render !User.countByUsername(params.username) as Boolean
+
+
+    }
 
 }

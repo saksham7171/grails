@@ -9,7 +9,7 @@ class UserController {
         User user = session.user
         List<ReadingItem> readingItems = ReadingItem.findAllByUser(user)
         render view: 'index', model: [subList: user.getSubscribedTopic(), topics: Topic.getTrendingTopics(),
-                                      items  : readingItems, user: user,topiclist:user.getSubscribedTopic()]
+                                      items  : readingItems, user: user,topicList:user.getSubscribedTopic()]
         //render("user dashboard ${session.user}")
 
     }

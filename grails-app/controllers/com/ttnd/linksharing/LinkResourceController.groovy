@@ -14,4 +14,5 @@ class LinkResourceController extends ResourceController {
         }
         redirect(controller: 'user',action: 'index')
     }
+
 }

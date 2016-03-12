@@ -13,13 +13,10 @@ class CustomTagLib {
         if (user && readingItem) {
             if (read) {
                 body = "<u>&nbspMark as Unread</u>"
-                out << g.link(body, controller: "readingItem", action: "changeIsRead",
-                        params: [resourceId: resource.id], style: "float:right")
-
             } else {
-                out << g.link(body, controller: "readingItem", action: "changeIsRead",
-                        params: [resourceId: attrs.id], style: "float:right")
+                body = "<u>&nbspMark as read</u>"
             }
+            out << g.link(body,name:"readingItem",class: "readingItem", style: "float:right",resourceId:resource.id)
         }
     }
 
@@ -29,7 +26,7 @@ class CustomTagLib {
         if (resourceType == "LinkResource") {
             out << "<a href='${link}' target='_blank' class='pull-right'><u>View Full Site</u></a>"
         } else if (resourceType == "DocumentResource") {
-            out << "<a href='#' class='pull-right'><u>Download</u></a>"
+            out << "<a href='${createLink(controller: 'documentResource', action: 'download', params: [id: attrs.id])}' class='pull-right'><u>Download</u></a>"
         }
     }
 
@@ -78,8 +75,35 @@ class CustomTagLib {
         }
     }
 
-    def userImage={attrs,body->
-        out<< "<img src=\"/user/image/${attrs.userId}\" width=\"100\" height=\"100\"/>"
+    def userImage = { attrs, body ->
+        out << "<img src=\"/user/image/${attrs.userId}\" width=\"100\" height=\"100\"/>"
+    }
+
+    def canUpdateTopic = { attrs, body ->
+        User user = User.get(attrs.userId)
+        Topic topic = Topic.get(attrs.topicId)
+
+        if (user.admin || user.equals(topic))
+            out << body()
+    }
+
+    def showSeriousness = { attrs, body ->
+        Long topicId = attrs.topicId
+        Topic topic = Topic.get(topicId)
+        User user = session.user
+        Subscription sub = user.getSubscription(attrs.topicId)
+
+        if (sub) {
+            out << g.select(name: "seriousness", id: "seriousness", from: Seriousness.values(), value: sub.seriousness, class: "btn btn-sm btn-default dropdown-toggle seriousness", topicId: topicId)
+        }
+    }
+
+    def showVisibility = { attrs, body ->
+        Long topicId = attrs.topicId
+        Topic topic = Topic.get(topicId)
+        User user = session.user
+        out << g.select(name: "visibility", id: "visibility", from: Visibility.values(), value: topic.visibility, class: "btn btn-sm btn-default dropdown-toggle visibility", topicName: topic.name)
     }
 }
+
 

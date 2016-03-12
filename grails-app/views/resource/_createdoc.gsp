@@ -31,7 +31,7 @@
 
                                 <div class="col-sm-10">
                                     <div class="dropdown">
-                                        <g:select name="topic" from="${topiclist}" optionKey="id"/>
+                                        <g:select name="topic" from="${topicList}" optionKey="id"/>
                                     </div>
                                 </div>
                             </div>

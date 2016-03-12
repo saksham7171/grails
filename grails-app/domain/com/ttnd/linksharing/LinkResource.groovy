@@ -11,4 +11,9 @@ class LinkResource extends Resource {
         return "$url"
     }
 
+    def deleteResource(){
+        this.delete(flush: true)
+        return true
+    }
+
 }
