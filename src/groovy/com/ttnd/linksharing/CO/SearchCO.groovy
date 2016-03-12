@@ -1,6 +1,6 @@
 package com.ttnd.linksharing.CO
 
-class searchCO {
+class SearchCO {
     String q
     Integer max
     Integer offset
