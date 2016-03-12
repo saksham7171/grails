@@ -3,9 +3,7 @@ dataSource {
     jmxExport = true
     driverClassName = "com.mysql.jdbc.Driver"
     dialect = org.hibernate.dialect.MySQL5InnoDBDialect
-    dbCreate="update"
-    username = "root"
-    password = "igdefault"
+
 }
 hibernate {
     cache.use_second_level_cache = true
@@ -24,7 +22,7 @@ environments {
             url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"*/
             username = "root"
             password = "igdefault"
-            dbCreate = "update"
+            dbCreate = "create"
             url = "jdbc:mysql://localhost:3306/linksharing"
         }
     }
