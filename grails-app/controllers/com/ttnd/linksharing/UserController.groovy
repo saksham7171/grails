@@ -2,6 +2,7 @@ package com.ttnd.linksharing
 
 import com.ttnd.linksharing.CO.ResourceSearchCO
 import com.ttnd.linksharing.CO.TopicSearchCO
+import com.ttnd.linksharing.CO.UpdatePasswordCO
 import com.ttnd.linksharing.CO.UserCO
 import com.ttnd.linksharing.CO.UserSearchCO
 import com.ttnd.linksharing.VO.TopicVO
@@ -139,5 +140,53 @@ class UserController {
             redirect(controller: 'login', action: 'index')
         }
     }
+
+    def edit() {
+        render view: 'edit', model: [user: session.user]
+    }
+
+    def save(UserCO co) {
+        User user = User.findByEmail(co.email)
+        if (user) {
+            user.firstName = co.firstName
+            user.lastName = co.lastName
+            co.photo = request.getFile('photo').bytes
+            if (co.photo) {
+                user.photo = co.photo
+            }
+            if (user.save(flush: true, validate: false)) {
+                flash.message = "Profile updated successfully"
+                session.user = user
+            } else {
+                flash.error = "Error updating profile"
+            }
+        } else {
+            flash.error = "User Not Found"
+        }
+        redirect(controller: "user", action: "edit")
+    }
+
+    def updatePassword(UpdatePasswordCO co) {
+        User user = co.getUser()
+        if (user.password == co.oldPassword) {
+            println "old password is correct"
+            co.validate()
+            if (co.hasErrors()) {
+                flash.error = "Errors in form"
+            } else {
+                user.password = co.password
+                if (user.save(flush: true,validate: false)) {
+                    flash.message = "Password changed successfully"
+                    session.user = user
+                } else {
+                    flash.error = "Error in updating password"
+                }
+            }
+        } else {
+            flash.error = "Old Password do not match!"
+        }
+        redirect(controller: "user", action: "edit")
+    }
+
 
 }

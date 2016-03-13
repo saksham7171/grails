@@ -53,7 +53,7 @@
             <a href="#"><span class="glyphicon glyphicon-envelope"
                               style="font-size:20px"></span></a>
             <a href="#"><span class="fa fa-file-o" style="font-size:20px"></span></a>
-            <a href="#"><span class="fa fa-trash" style="font-size:20px"></span></a>
+            <a href="${createLink(controller: 'topic',action: 'delete',params: [id:topic.id])}"><span class="fa fa-trash" style="font-size:20px"></span></a>
         </div>
         </ls:canUpdateTopic>
     </div>

@@ -49,7 +49,7 @@
                         ${session.user} <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li><a href="${createLink(controller: "user",action: "profile", params: [userId: session.user.id])}">Profile</a></li>
+                        <li><a href="${createLink(controller: "user",action: "edit", params: [userId: session.user.id])}">Profile</a></li>
                         <g:if test="${session.user.admin}">
                             <li><a href="/user/list">Users</a></li>
                         </g:if>

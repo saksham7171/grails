@@ -60,7 +60,8 @@ class EmailService {
             if (sendMail(emailDTO)) {
                 return true
             }
+        } else {
+            return false
         }
-        return false
     }
 }

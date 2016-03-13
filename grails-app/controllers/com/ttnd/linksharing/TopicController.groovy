@@ -68,4 +68,21 @@ class TopicController {
         }
         redirect(controller: "login", action: "index")
     }
+
+    def delete(Long id) {
+
+        Topic topic = Topic.get(id)
+        User user = session.user
+
+        if (topic) {
+            if (user.admin || (topic.createdBy.id == user.id)) {
+                topic.delete(flush: true)
+                flash.message = "Successfully deleted"
+            } else
+                flash.error = "Can't be deleted"
+        } else
+            flash.error = "Topic not found"
+
+        redirect(controller: 'login', action: 'index')
+    }
 }
