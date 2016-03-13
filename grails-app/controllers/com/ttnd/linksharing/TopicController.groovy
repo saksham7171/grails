@@ -16,14 +16,17 @@ class TopicController {
             flash.error = "Topic doesn't exists"
             redirect(controller: 'login', action: 'index')
         } else if (topic.visibility == Visibility.PUBLIC) {
-            render view: "show", model: [topic: topic, users: users]
+            co.visibility=Visibility.PUBLIC
+            List<Resource> resources=Resource.search(co).list()
+            render view: "show", model: [topic: topic, users: users,resources:resources]
         } else {
             User user = session.user
             if (!Subscription.findByUserAndTopic(user, topic)) {
                 flash.error = "Private Topic,Not Subscribed"
                 render(flash.error)
             } else {
-                render view: "show", model: [topic: topic, users: users]
+                List<Resource> resources=Resource.search(co).list()
+                render view: "show", model: [topic: topic, users: users,resources: resources]
             }
         }
     }

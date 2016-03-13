@@ -42,7 +42,7 @@
                 <ls:showSeriousness name="seriousness"  topicId="${topic.id}"/>
             </div>
         </div>
-        <ls:canUpdateTopic userId="${session.user.id}" topicId="${topic.id}">
+        <ls:canUpdateTopic userId="${session.user?.id}" topicId="${topic.id}">
         <div class="col-md-4">
             <div class="dropdown">
                 <ls:showVisibility topicId="${topic.id}"/>

@@ -87,7 +87,7 @@ class CustomTagLib {
         User user = User.get(attrs.userId)
         Topic topic = Topic.get(attrs.topicId)
 
-        if (user.admin || user.equals(topic)) {
+        if (user?.admin || user?.equals(topic)) {
             out << body()
         }
     }
@@ -95,7 +95,7 @@ class CustomTagLib {
     def showSeriousness = { attrs, body ->
         Long topicId = attrs.topicId
         User user = session.user
-        Subscription sub = user.getSubscription(attrs.topicId)
+        Subscription sub = user?.getSubscription(attrs.topicId)
 
         if (sub) {
             out << g.select(name: "seriousness", id: "seriousness", from: Seriousness.values(), value: sub.seriousness, optionKey: "key", class: "btn btn-sm btn-default dropdown-toggle seriousness", topicId: topicId)

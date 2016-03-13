@@ -33,10 +33,21 @@
                 </a>
             </div>
 
-            <form class="navbar-form pull-right">
+            <form class="navbar-form ">
+                <div class="row">
+                    <div class="col-md-4">
+                <g:form class="search-form">
+                    <div class="form-inline">
+                        <g:textField name="q" class="form-control"
+                                     placeholder="Description String"/>
+                        <g:submitButton name="submit" value="search"
+                                        type="submit" formaction="/login/globalSearch" class="btn btn-default">Find</g:submitButton>
+                    </div>
+
+                </g:form>
+                    </div>
+                    <div class="navbar-right">
                 <g:if test="${session.user}">
-                <a href="#"><span class="glyphicon glyphicon-search"></span></a>
-                <input type="text" class="form-control" placeholder="Search">
                 <a href="#topic" data-toggle="modal"><div class="glyphicon glyphicon-comment inline"></div></a>
                 <a href="#invitation" data-toggle="modal"><div class="glyphicon glyphicon-envelope inline"></div></a>
                 <a href="#link" data-toggle="modal"><div class="fa fa-chain inline"></div></a>
@@ -57,7 +68,10 @@
                     </ul>
                 </div>
                 </g:if>
+                        </div>
+                </div>
             </form>
+
         </nav>
         <g:render template="/login/forgotPassword"/>
         <g:if test="${session.user}">

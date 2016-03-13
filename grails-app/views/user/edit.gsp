@@ -9,16 +9,15 @@
 <body>
 <div class="col-xs-5">
     <g:render template="user" model="[user:session.user]"></g:render>
-
+    <g:hiddenField name="id" id="id" value="${user.id}"/>
     <div class="panel panel-default">
         <div class="panel-heading">
             Topics <a href="#" class="inline" style="float:right"></a>
         </div>
 
-        <div class="panel-body" style="overflow-y:auto;height: 250px">
-            <g:each in="${subList}" var="topic">
-                <g:render template="show" model="[topic: topic]"/>
-            </g:each>
+        <div class="panel-body" style="overflow-y:auto;height: 500px">
+            <div id="createdTopics">
+            </div>
         </div>
     </div>
 
@@ -128,6 +127,17 @@
         </div>
 </div>
 
-
+</div>
+<g:javascript>
+    $(document).ready(function () {
+        $.ajax({
+            url:"/user/topics",
+            data:{id:$("#id").val()},
+            success:function(result){
+                $('#createdTopics').html(result)
+            }
+        });
+    });
+</g:javascript>
 </body>
 </html>

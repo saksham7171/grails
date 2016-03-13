@@ -1,5 +1,8 @@
 package com.ttnd.linksharing
 
+import com.ttnd.linksharing.CO.ResourceSearchCO
+import com.ttnd.linksharing.CO.TopicSearchCO
+
 class LoginController {
 
     def index() {
@@ -47,4 +50,23 @@ class LoginController {
         render User.countByUsername(params.username) as Boolean
     }
 
+    def globalSearch(String q) {
+        ResourceSearchCO resourceSearchCO = new ResourceSearchCO(q: q)
+        TopicSearchCO topicSearchCO=new TopicSearchCO(q:q)
+        List<Topic> topics=[]
+        List<Resource> resources=[]
+        if (!session.user) {
+            resourceSearchCO.visibility = Visibility.PUBLIC
+            topicSearchCO.visibility = Visibility.PUBLIC
+        }
+        else{
+            topicSearchCO.userId=session.user.id
+            }
+
+        Subscription.search(topicSearchCO).list().each {
+            topics.add(it.topic)
+        }
+        resources=Resource.search(resourceSearchCO).list()
+        render view: "/global/search",model: [resources:resources,topics:topics]
+    }
 }
