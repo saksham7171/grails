@@ -169,13 +169,12 @@ class UserController {
     def updatePassword(UpdatePasswordCO co) {
         User user = co.getUser()
         if (user.password == co.oldPassword) {
-            println "old password is correct"
             co.validate()
             if (co.hasErrors()) {
                 flash.error = "Errors in form"
             } else {
                 user.password = co.password
-                if (user.save(flush: true,validate: false)) {
+                if (user.save(flush: true, validate: false)) {
                     flash.message = "Password changed successfully"
                     session.user = user
                 } else {

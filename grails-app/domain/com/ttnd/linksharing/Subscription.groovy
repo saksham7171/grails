@@ -17,7 +17,7 @@ class Subscription {
         topic lazy: false
         user lazy: false
     }
-    static namedQueries = {
+    static namedQueries = { //todo include visibility search criteria also
         search { TopicSearchCO co ->
             if (co.userId) {
                 eq('user.id', co.userId)

@@ -44,7 +44,7 @@ class SubscriptionController {
     def update(Long id, String seriousness) {
         Map jsonObj = [:]
         Subscription subscription = Subscription.findByUserAndTopic(session.user, Topic.load(id))
-        if (subscription ?: render("Subscription not found")) {
+        if (subscription ?: render("Subscription not found")) {                 //todo correct if statement
             subscription.seriousness = Seriousness.convert(seriousness)
             if (subscription.save(flush: true)) {
                 jsonObj.message = "Successfully updated"

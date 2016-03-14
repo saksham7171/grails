@@ -41,8 +41,8 @@ class ResourceController {
     def show(Long id) {
         List<Topic> topics = Topic.getTrendingTopics()
         Resource resource = Resource.get(id)
-        RatingInfoVO vo = resource.ratingInfo
-        vo
+//        RatingInfoVO vo = resource.ratingInfo
+//        vo
         if (resource.canViewBy(session.user)) {
             render view: "show", model: [resource: resource, topics: topics]
         }
@@ -67,5 +67,17 @@ class ResourceController {
             }
             readingItem.save(flush: true)
         }
+    }
+
+    def update(Long id, String description) {
+        Resource resource = Resource.get(id)
+        if (description) {
+            resource.description = description
+            resource.save(flush: true)
+            flash.message = "Resource saved Successfully"
+        } else {
+            flash.message = "Description can't be Blank"
+        }
+        redirect controller: 'resource', action: 'show'
     }
 }

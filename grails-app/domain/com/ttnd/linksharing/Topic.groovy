@@ -38,6 +38,7 @@ class Topic {
         return "$name"
     }
 
+
     static List<TopicVO> getTrendingTopics() {
         List<TopicVO> topicVOList = []
 
@@ -80,7 +81,7 @@ class Topic {
     }
 
     Boolean canViewedBy(User user) {
-        return ((this.isPublic() || user.admin) || Subscription.findByUserAndTopic(user, this)) ? true : false
+        return ((this.isPublic() || user?.admin) || Subscription.findByUserAndTopic(user, this))
     }
 
 }

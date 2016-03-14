@@ -46,7 +46,7 @@
 
                 </g:form>
                     </div>
-                    <div class="navbar-right">
+                    <div class="col-md-offset-9">
                 <g:if test="${session.user}">
                 <a href="#topic" data-toggle="modal"><div class="glyphicon glyphicon-comment inline"></div></a>
                 <a href="#invitation" data-toggle="modal"><div class="glyphicon glyphicon-envelope inline"></div></a>

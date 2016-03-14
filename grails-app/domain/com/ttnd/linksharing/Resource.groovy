@@ -50,7 +50,7 @@ abstract class Resource {
         new RatingInfoVO(totalVotes: result[0], averageScore: result[1], totalScore: result[2])
     }
 
-    static List<Resource> getTopPost() {
+    static List<Resource> getTopPost() {        //todo check count of top posts
         List<Resource> resources = []
         def result = ResourceRating.createCriteria().list {
             projections {

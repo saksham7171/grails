@@ -71,15 +71,13 @@
                 </div>
             </div>
         </div>
-
-
-
         <div class="col-md-1 ">
-            <a href="#">
-                <ins>Edit</ins>
-            </a>
-        </div>
+            <a href="#editResource" data-toggle="modal" data-target="#editResource"
+               title="edit">Edit</a>
 
+            <g:render template="edit" model="[resource: resource]"/>
+
+        </div>
         <div class="col-md-2 ">
             <ins><ls:resourceType id="${resource.id}" url="${resource}" /></ins>
         </div>
