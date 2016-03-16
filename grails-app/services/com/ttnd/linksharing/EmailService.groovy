@@ -64,4 +64,14 @@ class EmailService {
             return false
         }
     }
+
+    def sendUnreadResources(User user,List<Resource> unreadReadingItems){
+        EmailDTO emailDTO=new EmailDTO()
+        emailDTO.to=[user.email]
+        emailDTO.subject="Unread Items"
+        emailDTO.content=groovyPageRenderer.render(template: '/resource/unreadResources',model:[user:user,unreadResources:unreadReadingItems])
+        sendMail(emailDTO)
+    }
+
+
 }

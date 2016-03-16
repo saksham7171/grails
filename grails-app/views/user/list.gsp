@@ -24,11 +24,12 @@
                             </select>
                         </div>
                     </div>
+
                     <div class="col-md-6">
-                            <g:textField name="q" type="text" class="form-control" id="q" placeholder="Search"/>
-                                    <button type="submit">
-                                        <span class="glyphicon glyphicon-search" style="font-size: small"></span>
-                                    </button>
+                        <g:textField name="q" type="text" class="form-control" id="q" placeholder="Search"/>
+                        <button type="submit">
+                            <span class="glyphicon glyphicon-search" style="font-size: small"></span>
+                        </button>
 
                     </div>
                 </g:form>
@@ -76,6 +77,12 @@
                     </tr>
                 </g:each>
             </table>
+
+            <div class="pagination">
+                <g:paginate next="Next" prev="Prev" total="${total}" maxsteps="${users.size()}" controller="user"
+                            action="list"
+                            max="${co.max}" offset="${co.offset}"/>
+            </div>
         </div>
     </div>
 </div>

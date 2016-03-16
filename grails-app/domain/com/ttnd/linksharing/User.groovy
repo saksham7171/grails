@@ -72,7 +72,7 @@ class User {
     }
 
     List<Topic> getSubscribedTopic() {
-        List<Topic> topicList = Subscription.createCriteria().list {
+        List<Topic> topicList = Subscription.createCriteria().list() {
             projections {
                 property('topic')
             }
@@ -80,6 +80,16 @@ class User {
 
         }
         topicList
+    }
+
+    List<Resource> getUnreadResources(){
+        ReadingItem.createCriteria().list(){
+            projections {
+                property('resource')
+            }
+            eq('user',this)
+            eq('isRead',false)
+        }
     }
 
     static Boolean canDeleteResource(User user, Long ResourceId) {
@@ -101,8 +111,8 @@ class User {
         return subscription
     }
 
-    Boolean equals(Topic topic) {
-        return (this == topic.createdBy) ? true : false
+    Boolean equals(User user) {//todo change it to pass user as argument
+        return (this.id == user.id)
     }
 
     static List<UserVO> getNormalUser(SearchCO co) {

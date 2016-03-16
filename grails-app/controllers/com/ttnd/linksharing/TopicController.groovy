@@ -11,22 +11,27 @@ class TopicController {
     def show(ResourceSearchCO co) {
         Topic topic = Topic.read(co.topicId)
         List<User> users = topic.getSubscribedUsers()
+        co.max = co.max ?: 2
+        co.offset = co.offset ?: 0
+        Integer total
 
         if (!topic) {
             flash.error = "Topic doesn't exists"
             redirect(controller: 'login', action: 'index')
         } else if (topic.visibility == Visibility.PUBLIC) {
             co.visibility = Visibility.PUBLIC
-            List<Resource> resources = Resource.search(co).list()
-            render view: "show", model: [topic: topic, users: users, resources: resources]
+            List<Resource> resources = Resource.search(co).list([max: co.max, offset: co.offset])
+            total = resources.totalCount
+            render view: "show", model: [topic: topic, users: users, resources: resources, total: total, co: co]
         } else {
             User user = session.user
             if (!Subscription.findByUserAndTopic(user, topic)) {
                 flash.error = "Private Topic,Not Subscribed"
-                render(flash.error)
+                redirect controller: 'user',action: 'index'
             } else {
-                List<Resource> resources = Resource.search(co).list()
-                render view: "show", model: [topic: topic, users: users, resources: resources]
+                List<Resource> resources = Resource.search(co).list([max: co.max, offset: co.offset])
+                total = resources.totalCount
+                render view: "show", model: [topic: topic, users: users, resources: resources, total: total, co: co]
             }
         }
     }
@@ -86,6 +91,20 @@ class TopicController {
         } else
             flash.error = "Topic not found"
 
-        redirect(controller: 'login', action: 'index')
+        redirect(controller: 'user', action: 'index')
+    }
+
+    def titleUpdate(Long id, String topicName) {
+        Topic topic = Topic.get(id)
+        Map json = [:]
+        if (topicName) {
+            topic.name = topicName
+        }
+        if (topic.save(flush: true)) {
+            json.message = "Topic Name Updated"
+        } else {
+            json.error = "Can't update !! Topic Name Already exists"
+        }
+        render json as JSON
     }
 }

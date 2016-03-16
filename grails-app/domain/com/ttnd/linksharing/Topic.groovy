@@ -53,8 +53,9 @@ class Topic {
             }
             maxResults 5
             eq('t.visibility', Visibility.PUBLIC)
-            order('t.name', 'desc')
             order('rcount', 'desc')
+            order('t.name', 'desc')
+
         }
 
         result.each { list ->
@@ -77,7 +78,7 @@ class Topic {
     }
 
     Boolean isPublic() {
-        return (this.visibility == Visibility.PUBLIC) ? true : false
+        return (this.visibility == Visibility.PUBLIC)
     }
 
     Boolean canViewedBy(User user) {

@@ -87,7 +87,7 @@ class CustomTagLib {
         User user = User.get(attrs.userId)
         Topic topic = Topic.get(attrs.topicId)
 
-        if (user?.admin || user?.equals(topic)) {
+        if (user?.admin || user?.equals(topic.createdBy)) {
             out << body()
         }
     }
