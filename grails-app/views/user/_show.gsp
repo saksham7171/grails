@@ -6,7 +6,9 @@
     <div class="col-md-9">
         <div class="row">
             <div class="col-md-6 col-xs-6">
-                <span class="text-primary">${topic.createdBy.getName()}</span>
+                <span class="text-primary">
+                    <a href="${createLink(controller: "user",action: "profile", params: [userId: topic.createdBy.id])}">${topic.createdBy.getName()}</a>
+                </span>
             </div>
 
             <div class="col-md-4 col-md-offset-2 col-xs-6">
@@ -40,7 +42,7 @@
                 <ls:showSeriousness name="seriousness"  topicId="${topic.id}"/>
             </div>
         </div>
-
+        <ls:canUpdateTopic userId="${session.user?.id}" topicId="${topic.id}">
         <div class="col-md-4">
             <div class="dropdown">
                 <ls:showVisibility topicId="${topic.id}"/>
@@ -51,8 +53,9 @@
             <a href="#"><span class="glyphicon glyphicon-envelope"
                               style="font-size:20px"></span></a>
             <a href="#"><span class="fa fa-file-o" style="font-size:20px"></span></a>
-            <a href="#"><span class="fa fa-trash" style="font-size:20px"></span></a>
+            <a href="${createLink(controller: 'topic',action: 'delete',params: [id:topic.id])}"><span class="fa fa-trash" style="font-size:20px"></span></a>
         </div>
+        </ls:canUpdateTopic>
     </div>
 </div>
 <hr>

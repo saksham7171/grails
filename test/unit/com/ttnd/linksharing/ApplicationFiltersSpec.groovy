@@ -6,12 +6,4 @@ import spock.lang.Specification
 @Mock(com.ttnd.linksharing.ApplicationFiltersSpec)
 class ApplicationFiltersSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
-    void "test something"() {
-    }
 }

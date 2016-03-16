@@ -16,14 +16,17 @@ class ResourceController {
             try {
                 if (resource.deleteResource()) {
                     flash.message = "Resource deleted Successfully"
-                } else
+                } else {
                     flash.error = "Resource not deleted"
+                }
 
             } catch (Exception e) {
                 log.error "Error : ${e.message}"
                 render "Resource can't be deleted"
             }
-        } else flash.error = "Resource deletion not allowed"
+        } else {
+            flash.error = "Resource deletion not allowed"
+        }
         redirect(uri: '/')
     }
 
@@ -38,8 +41,8 @@ class ResourceController {
     def show(Long id) {
         List<Topic> topics = Topic.getTrendingTopics()
         Resource resource = Resource.get(id)
-        RatingInfoVO vo = resource.ratingInfo
-        vo
+//        RatingInfoVO vo = resource.ratingInfo
+//        vo
         if (resource.canViewBy(session.user)) {
             render view: "show", model: [resource: resource, topics: topics]
         }
@@ -62,12 +65,19 @@ class ResourceController {
             } else {
                 readingItem = new ReadingItem(user: user, resource: resource, isRead: false)
             }
-            if (readingItem.save(flush: true)) {
-                println "added to reading items"
-            }
-
+            readingItem.save(flush: true)
         }
+    }
 
-
+    def update(Long id, String description) {
+        Resource resource = Resource.get(id)
+        if (description) {
+            resource.description = description
+            resource.save(flush: true)
+            flash.message = "Resource saved Successfully"
+        } else {
+            flash.message = "Description can't be Blank"
+        }
+        redirect controller: 'resource', action: 'show'
     }
 }

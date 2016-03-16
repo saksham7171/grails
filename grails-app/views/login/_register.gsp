@@ -78,11 +78,12 @@
 
     <div class="form-group">
         <label class="col-xs-3 control-label">Photo</label>
-        <input type="file" name="photo" id="photo">
+        <input type="file" class="btn btn-primary" name="photo" id="photo">
     <div class="form-group">
-        <div class="col-xs-offset-3 col-xs-10">
+    <hr>
+        <div class="col-xs-offset-1 col-xs-10">
 %{--<g:actionSubmit  formaction="/user/register" type="submit" class="btn btn-primary" value="Register"/>--}%
-    <g:submitButton name="register" type="submit" class="btn btn-primary" value="Register"/>
+    <g:submitButton name="register" type="submit" class="btn btn-primary btn-block" value="Register"/>
     </div>
 </div>
 </g:uploadForm>

@@ -58,7 +58,7 @@ grails.project.dependency.resolution = {
         compile "org.grails.plugins:console:1.5.7"
         // plugins for the build system only
         build ":tomcat:7.0.55.3" // or ":tomcat:8.0.22"
-
+        compile "org.grails.plugins:mail:1.0.7"
         compile "org.grails.plugins:codenarc:0.25.1"
         // plugins for the compile step
         compile ":scaffolding:2.1.2"
@@ -78,3 +78,14 @@ grails.project.dependency.resolution = {
         //compile ":handlebars-asset-pipeline:1.3.0.3"
     }
 }
+
+codenarc {
+    ruleSetFiles = "file:grails-app/conf/CodeNarcRules.groovy"
+    reports = {
+        HtmlReport('html') {                  // Report type is 'html'
+            outputFile = 'target/CodeNarcReport.html'
+            title = 'My Test Code Narc Report'
+        }
+    }
+}
+

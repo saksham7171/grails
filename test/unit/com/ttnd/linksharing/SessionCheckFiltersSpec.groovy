@@ -7,12 +7,4 @@ import spock.lang.Specification
 
 class SessionCheckFiltersSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
-    void "test something"() {
-    }
 }

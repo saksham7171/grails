@@ -12,11 +12,6 @@ import spock.lang.Specification
 @Mock([User])
 class UserControllerSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
 
     def "check user dashboard"() {
         when: "user exists"
@@ -24,7 +19,7 @@ class UserControllerSpec extends Specification {
                 firstName: "saksham", lastName: "sharma", admin: true, active: true, confirmPassword: Constants.password)
         user.save(flush: true)
 
-        session["user"]=user
+        session["user"] = user
         controller.index()
 
         then: "dashboard view should be rendered"

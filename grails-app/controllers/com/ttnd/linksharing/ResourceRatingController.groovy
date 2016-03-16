@@ -2,8 +2,6 @@ package com.ttnd.linksharing
 
 class ResourceRatingController {
 
-    def index() {}
-
     def save(Long id, Integer score) {
         Resource resource = Resource.read(id)
         User user = session.user

@@ -1,3 +1,4 @@
+<g:each in="${resources}" var="resource">
 <div class="row">
     <div class="col-xs-2">
         <ls:userImage userId="${resource.createdBy.id}"/>
@@ -15,3 +16,4 @@
     </div>
 </div>
 <hr>
+</g:each>

@@ -60,17 +60,7 @@ $(document).ready(function () {
             url: "/topic/save",
             data: {topicName: $('#topicName').val(), visibility: $('#visibility').val()},
             success: function (jsonObj) {
-                $('.json').css({"display": "block"});
-                if (jsonObj.message) {
-                    $('.json').text(jsonObj.message);
-                    $('.json').addClass('alert alert-success alert-dismissable');
-
-                }
-                else if (jsonObj.error) {
-                    $('.json').text(jsonObj.error);
-                    $('.json').addClass('alert alert-danger alert-dismissable');
-
-                }
+                location.reload()
             }
         })
     })
@@ -104,7 +94,7 @@ $(document).ready(function () {
                 },
                 'email': {
                     required: true,
-                    remote:  "/login/validateEmail"
+                    remote: "/login/validateEmail"
                 },
                 'username': {
                     required: true,
@@ -138,6 +128,31 @@ $(document).ready(function () {
         });
     });
 
+    $(function () {
+        $('#login').validate({
+            rules: {
+                'password': {
+                    required: true,
+                    minlength: 5
+                },
+                'username': {
+                    required: true,
+                    remote: "/login/existUserName"
+                }
+            },
+            messages: {
+                'password': {
+                    required: "Password Field Cannot Be Blank",
+                    minlength: "Minimum Password Size Is Of 5 Characters"
+                },
+                'username': {
+                    required: "User Name Field Cannot Be Blank",
+                    remote: "Username entered doesn't exist"
+                }
+            }
+        });
+    });
+
     $('.readingItem').click(function (e) {
         e.preventDefault();
         var self = $(this);
@@ -151,15 +166,15 @@ $(document).ready(function () {
                         $('.json').addClass('alert alert-success')
                         if (jsonObject.status == true) {
 
-                            self.text("Mark As Unread")
+                            self.text("Mark as Unread")
                         }
                         else {
-                            self.text("Mark As Read")
+                            self.text("Mark as Read")
                         }
                     }
                     else if (jsonObject.error) {
                         $('.json').text(jsonObject.error)
-                        $('.json').addClass('alert alert-error')
+                        $('.json').addClass('alert alert-danger')
 
 
                     }

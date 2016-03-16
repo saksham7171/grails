@@ -4,7 +4,7 @@
     </div>
 
     <div class="panel-body">
-        <g:form class="form-horizontal">
+        <g:form class="form-horizontal" name="login">
             <div class="form-group">
                 <label class="col-xs-2 control-label">UserName</label>
 
@@ -37,6 +37,6 @@
                 </div>
             </div>
         </g:form>
-        <a href="#"><p class="text-right">Forgot Password?</p></a>
+        <a href="#"><p data-target="#pwdModal" data-toggle="modal" class="text-right">Forgot Password?</p></a>
     </div>
 </div>

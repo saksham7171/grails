@@ -5,7 +5,6 @@ import org.springframework.web.multipart.MultipartFile
 
 class DocumentResourceController extends ResourceController {
 
-    def index() {}
 
     @Transactional
     def save(DocumentResource documentResource) {
@@ -33,7 +32,7 @@ class DocumentResourceController extends ResourceController {
 
             if (documentResource.save(flush: true)) {
                 addToReadingItems(documentResource)
-                flash.message = "$documentResource saved in database"
+                flash.message = "Document saved Successfully"
             } else {
                 flash.error = "Document cant be saved"
                 //render(flash.error)

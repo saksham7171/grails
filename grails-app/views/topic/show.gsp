@@ -13,7 +13,7 @@
                 Topic : ${topic.name}
             </div>
 
-            <div class="panel-body" ">
+            <div class="panel-body">
                     <g:render template="/user/trendingTopics" model="[topic:topic]"/>
             </div>
         </div>
@@ -32,15 +32,29 @@
     </div>
 
     <div class="col-xs-7 col">
-        <div class="panel panel-default panel-primary">
+        <div class="panel panel-default">
             <div class="panel-heading">
-                Posts : ${topic.name}
+                <div class="row">
+                    <div class="col-md-1">
+                        Posts
+                    </div>
+                <div class="col-md-offset-4 col-md-6" style="text-align:left">
+                    <g:form action="show" controller="topic" class="search-form">
+                        <div class="form-inline">
+                            <g:textField name="q" class="form-control"
+                                         placeholder="Description String"/>
+                            <g:hiddenField name="topicId" value="${topic.id}"/>
+                            <g:submitButton name="submit" value="find" formaction="/topic/show"
+                                            type="submit" class="btn btn-default">Find</g:submitButton>
+                        </div>
+
+                    </g:form>
+                </div>
+                </div>
             </div>
 
             <div class="panel-body" style="overflow-y: auto;height: 620px">
-                <g:each in="${topic.resources}" var="resource">
-                    <g:render template="topicPosts" model="[resource: resource]"/>
-                </g:each>
+                    <g:render template="topicPosts" model="[resources: resources]"/>
             </div>
         </div>
 

@@ -2,7 +2,6 @@ package com.ttnd.linksharing
 
 import com.ttnd.linksharing.CO.ResourceSearchCO
 import com.ttnd.linksharing.VO.RatingInfoVO
-import com.ttnd.linksharing.VO.TopicVO
 
 abstract class Resource {
     String description
@@ -30,6 +29,12 @@ abstract class Resource {
                     eq('visibility', co.visibility)
                 }
             }
+            if (co.userId) {
+                eq('createdBy.id', co.userId)
+            }
+            if (co.q) {
+                ilike('description', "%${co.q}%")
+            }
         }
     }
 
@@ -45,9 +50,9 @@ abstract class Resource {
         new RatingInfoVO(totalVotes: result[0], averageScore: result[1], totalScore: result[2])
     }
 
-    static List<Resource> getTopPost() {
+    static List<Resource> getTopPost() {        //todo check count of top posts
         List<Resource> resources = []
-        def result = ResourceRating.createCriteria().list() {
+        def result = ResourceRating.createCriteria().list {
             projections {
                 property('resource.id')
             }
@@ -65,7 +70,7 @@ abstract class Resource {
     }
 
     static List<Resource> getRecentShare() {
-        def result = Resource.createCriteria().list() {
+        def result = Resource.createCriteria().list {
             createAlias('topic', 't')
             eq('t.visibility', Visibility.PUBLIC)
             order('lastUpdated', 'desc')
@@ -76,19 +81,21 @@ abstract class Resource {
 
     static def checkResourceType(Long id) {
         Resource resource = Resource.read(id)
-        if (resource.class.equals(LinkResource))
+        if (resource.class == (LinkResource))
             return "LinkResource"
-        else if (resource.class.equals(DocumentResource))
+        else if (resource.class == (DocumentResource))
             return "DocumentResource"
     }
 
     Boolean canViewBy(User user) {
         if (this.topic.canViewedBy(user))
             return true
-        else false
+        else {
+            false
+        }
     }
 
-    def deleteResource(){
+    def deleteResource() {
         log.info "Resource deleted"
     }
 }

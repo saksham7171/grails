@@ -33,10 +33,21 @@
                 </a>
             </div>
 
-            <form class="navbar-form pull-right">
+            <form class="navbar-form ">
+                <div class="row">
+                    <div class="col-md-4">
+                <g:form class="search-form">
+                    <div class="form-inline">
+                        <g:textField name="q" class="form-control"
+                                     placeholder="Description String"/>
+                        <g:submitButton name="submit" value="search"
+                                        type="submit" formaction="/login/globalSearch" class="btn btn-default">Find</g:submitButton>
+                    </div>
+
+                </g:form>
+                    </div>
+                    <div class="col-md-offset-9">
                 <g:if test="${session.user}">
-                <a href="#"><span class="glyphicon glyphicon-search"></span></a>
-                <input type="text" class="form-control" placeholder="Search">
                 <a href="#topic" data-toggle="modal"><div class="glyphicon glyphicon-comment inline"></div></a>
                 <a href="#invitation" data-toggle="modal"><div class="glyphicon glyphicon-envelope inline"></div></a>
                 <a href="#link" data-toggle="modal"><div class="fa fa-chain inline"></div></a>
@@ -49,21 +60,26 @@
                         ${session.user} <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#">Users</a></li>
-                        <li><a href="/login/logout">Logout</a></li>
+                        <li><a href="${createLink(controller: "user",action: "edit", params: [userId: session.user.id])}">Profile</a></li>
+                        <g:if test="${session.user.admin}">
+                            <li><a href="/user/list">Users</a></li>
+                        </g:if>
+                        <li><a href="${createLink(controller: "login",action: "logout")}">Logout</a></li>
                     </ul>
                 </div>
                 </g:if>
+                        </div>
+                </div>
             </form>
+
         </nav>
+        <g:render template="/login/forgotPassword"/>
         <g:if test="${session.user}">
             <g:render template="/topic/create"/>
             <g:render template="/resource/createdoc"/>
             <g:render template="/resource/createlink"/>
             <g:render template="/topic/email"/>
         </g:if>
-
 
         <g:if test="${flash.message}">
             <div class="alert alert-success alert-dismissible" role="alert">
@@ -72,8 +88,6 @@
             </div>
 
         </g:if>
-
-
 
         <g:if test="${flash.error}">
             <div class="alert alert-danger alert-dismissible" role="alert">

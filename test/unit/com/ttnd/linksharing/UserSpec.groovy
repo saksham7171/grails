@@ -73,7 +73,7 @@ class UserSpec extends Specification {
                 lastName: "sharma", admin: true, active: true, photo: "photo".bytes)
 
         expect:
-        user.toString()=="saksham sharma"
+        user.toString() == "saksham sharma"
 
     }
 

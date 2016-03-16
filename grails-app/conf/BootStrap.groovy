@@ -26,7 +26,7 @@ class BootStrap {
 
     List<User> createUsers() {
 
-        User user = new User(email: "sakham.sharma@ttnd.com", username: "saksham", password: Constants.password,
+        User user = new User(email: "saksham.sharma@tothenew.com", username: "saksham", password: Constants.password,
                 firstName: "saksham", lastName: "sharma", admin: true, active: true,confirmPassword:Constants.password)
         User user1 = new User(email: "brij.kishor@ttnd.com", username: "brij", password: Constants.password,
                 firstName: "brij", lastName: "kishor", admin: false, active: true,confirmPassword: Constants.password)

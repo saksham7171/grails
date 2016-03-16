@@ -7,11 +7,11 @@ class LinkResource extends Resource {
         url(url: true, blank: false)
     }
 
-    String toString(){
+    String toString() {
         return "$url"
     }
 
-    def deleteResource(){
+    def deleteResource() {
         this.delete(flush: true)
         return true
     }

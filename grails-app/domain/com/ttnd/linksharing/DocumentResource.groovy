@@ -7,7 +7,7 @@ class DocumentResource extends Resource {
     String contentType
     String fileName
 
-    static transients = ['contentType','fileName']
+    static transients = ['contentType', 'fileName']
 
     static constraints = {
         filePath(filePath: true, blank: false)
@@ -18,19 +18,18 @@ class DocumentResource extends Resource {
         return "$filePath"
     }
 
-    String getFileName(){
-        fileName=filePath.substring(filePath.lastIndexOf('/'))
+    String getFileName() {
+        fileName = filePath.substring(filePath.lastIndexOf('/'))
         return fileName
     }
 
-    def deleteResource(){
-        String filePath=this.filePath
-        boolean fileDeleted=new File(filePath).delete()
-        if(fileDeleted){
+    def deleteResource() {
+        String filePath = this.filePath
+        boolean fileDeleted = new File(filePath).delete()
+        if (fileDeleted) {
             this.delete(flush: true)
             return true
-        }
-        else{
+        } else {
             return false
         }
     }

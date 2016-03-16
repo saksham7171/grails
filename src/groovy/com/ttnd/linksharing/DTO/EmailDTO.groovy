@@ -1,7 +1,12 @@
 package com.ttnd.linksharing.DTO
 
-/**
- * Created by saksham on 12/3/16.
- */
+import grails.validation.Validateable
+
+@Validateable
 class EmailDTO {
+    List<String> to
+    String subject
+    String view
+    String content
+    Map model
 }

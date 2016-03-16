@@ -11,11 +11,6 @@ import spock.lang.Specification
 @Mock([LinkResource, Resource, User, Topic])
 class ResourceControllerSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
 
     def "check deletion of resource success"() {
         given:

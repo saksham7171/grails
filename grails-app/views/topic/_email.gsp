@@ -6,7 +6,7 @@
                 <h4 class="modal-title" id="myModalLabel">Send invitation</h4>
             </div>
             <div class="modal-body">
-                <g:form class="form-horizontal">
+                <g:form class="form-horizontal" controller="topic" action="invite">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Email</label>
                         <div class="col-sm-10">
@@ -14,17 +14,15 @@
                         </div>
                         <label class="col-sm-2 control-label">Topic</label>
                         <div class="col-sm-10">
-                            <div class="dropdown">
-                                <g:select name="topic" from="${topicList}" optionKey="id" />
-                            </div>
+                                <ls:showTopicList/>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Invite</button>
+                    <div class="modal-footer">
+                    <g:submitButton name="emailBtn" type="submit" class="btn btn-primary btn-block" value="Invite"/>
+                    </div>
                 </g:form>
             </div>
-            <div class="modal-footer">
-            </div>
+
         </div>
     </div>
 </div>
