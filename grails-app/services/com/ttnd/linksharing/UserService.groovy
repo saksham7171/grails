@@ -5,6 +5,8 @@ import grails.transaction.Transactional
 @Transactional
 class UserService {
 
+    def emailService
+
     def isAdmin(Long id) {
         User user = User.get(id)
         if (user) {
@@ -35,5 +37,19 @@ class UserService {
                 user.active = !user.active
             }
         }
+    }
+
+    def sendUnreadItems(){
+        getUserWithUnreadItems().each {user->
+            emailService.sendUnreadResources(user,getUnreadResources(user))
+        }
+    }
+
+    List<User> getUserWithUnreadItems(){
+    return Resource.userWithUnreadResources()
+    }
+
+    List<Resource> getUnreadResources(User user){
+        return user.getUnreadResources()
     }
 }

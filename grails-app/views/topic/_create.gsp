@@ -1,4 +1,4 @@
-<%@ page import="com.ttnd.linksharing.Visibility" %>
+ <%@ page import="com.ttnd.linksharing.Visibility" %>
 <div class="modal fade" id="topic" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -7,7 +7,7 @@
                 <h4 class="modal-title" id="myModalLabel">Create Topic</h4>
             </div>
             <div class="modal-body">
-                <g:form class="form-horizontal" controller="topic" action="save">
+                <g:form class="form-horizontal" >
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Name</label>
                         <div class="col-sm-10">
@@ -21,7 +21,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                    <g:submitButton formaction="/topic/save" type="submit" name="submit" value="Create" id="createTopicBtn" class="btn btn-primary btn-block"/>
+                    <g:submitButton  type="submit" name="submit" value="Create" id="createTopicBtn" class="btn btn-primary btn-block"/>
                     </div>
                 </g:form>
             </div>

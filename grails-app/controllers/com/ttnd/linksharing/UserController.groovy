@@ -1,6 +1,7 @@
 package com.ttnd.linksharing
 
 import com.ttnd.linksharing.CO.ResourceSearchCO
+import com.ttnd.linksharing.CO.SearchCO
 import com.ttnd.linksharing.CO.TopicSearchCO
 import com.ttnd.linksharing.CO.UpdatePasswordCO
 import com.ttnd.linksharing.CO.UserCO
@@ -14,11 +15,14 @@ class UserController {
     def topicService
     def emailService
 
-    def index() {
+    def index(SearchCO co) {
         User user = session.user
-        List<ReadingItem> readingItems = ReadingItem.findAllByUser(user)
-        render view: 'index', model: [subList: user.getSubscribedTopic(), topics: Topic.getTrendingTopics(),
-                                      items  : readingItems, user: user, topicList: user.getSubscribedTopic()]
+        co.max = co.max ?: 5
+        co.offset = co.offset ?: 0
+        List<ReadingItem> readingItems = ReadingItem.findAllByUser(user, [max: co.max, offset: co.offset])
+        Integer total = ReadingItem.countByUser(user)
+        render view: 'index', model: [subList: user?.getSubscribedTopic(), topics: Topic?.getTrendingTopics(),
+                                      items  : readingItems, user: user, topicList: user?.getSubscribedTopic(), total: total, co: co]
         //render("user dashboard ${session.user}")
 
     }
@@ -101,12 +105,15 @@ class UserController {
 
     def list(UserSearchCO co) {
         if (session.user.admin) {
+            Integer total = User.countByAdmin(false)
+            co.max = co.max ?: 1 //20
+            co.offset = co.offset ?: 0
             List<UserVO> normalUsers = []
-            List<User> users = User.search(co).list([sort: co.sort, order: co.order])
+            List<User> users = User.search(co).list([max: co.max, offset: co.offset, sort: co.sort, order: co.order])
             users.each {
                 normalUsers.add(new UserVO(id: it.id, name: it.username, firstName: it.firstName, lastName: it.lastName, email: it.email, isActive: it.active))
             }
-            render view: "list", model: [users: normalUsers]
+            render view: "list", model: [users: normalUsers, co: co, total: total]
         } else {
             flash.error = "permission denied"
             redirect controller: "user", action: "index"

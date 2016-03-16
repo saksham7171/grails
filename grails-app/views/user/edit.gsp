@@ -36,7 +36,7 @@
 
                     <div class="col-xs-9">
                         <g:field type="text" class="form-control" id="firstName" name="firstName" value="${user?.firstName}"
-                                 placeholder="First Name"/>
+                                 placeholder="First Name" required="true"/>
                         <div class="alert-danger">
                             <g:fieldError field="firstName" bean="${user}"/>
                         </div>
@@ -48,7 +48,7 @@
 
                     <div class="col-xs-9">
                         <g:field type="text" class="form-control" id="lastName" value="${user?.lastName}" name="lastName"
-                                 placeholder="Last Name"/>
+                                 placeholder="Last Name" required="true"/>
                         <div class="alert-danger">
                             <g:fieldError field="lastName" bean="${user}"/>
                         </div>

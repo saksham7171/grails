@@ -14,6 +14,8 @@
   %{--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
  --}%
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.0.1/jquery.rateyo.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.0.1/jquery.rateyo.min.js"></script>
     <asset:javascript src="jquery-2.2.1.min.js"/>
     <asset:javascript src="bootstrap.min.js"/>
     <asset:javascript src="application.js"/>
@@ -84,7 +86,7 @@
         <g:if test="${flash.message}">
             <div class="alert alert-success alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                ${flash.message}
+                Success !! ${flash.message}
             </div>
 
         </g:if>
@@ -92,7 +94,7 @@
         <g:if test="${flash.error}">
             <div class="alert alert-danger alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                ${flash.error}
+                Error !! ${flash.error}
             </div>
 
         </g:if>

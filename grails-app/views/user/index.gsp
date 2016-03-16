@@ -9,7 +9,7 @@
 
 <div class="row">
     <div class="col-xs-5">
-        <g:render template="user" model="[user:user]"></g:render>
+        <g:render template="user" model="[user: user]"></g:render>
 
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -42,13 +42,17 @@
                 Inbox
             </div>
 
-            <div class="panel-body" style="overflow-y: auto;height: 740px">
+            <div class="panel-body">
                 <g:each in="${items}" var="item">
                     <g:render template="inbox" model="[item: item]"/>
                 </g:each>
             </div>
+            <ul class="pagination">
+                <g:paginate next="Next" prev="Prev" total="${total}" maxsteps="${items.size()}" controller="user"
+                            action="index"
+                            max="${co.max}" offset="${co.offset}"/>
+            </ul>
         </div>
-
     </div>
 </div>
 </body>

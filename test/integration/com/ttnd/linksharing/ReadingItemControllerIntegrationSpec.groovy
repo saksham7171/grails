@@ -5,7 +5,7 @@ import grails.test.spock.IntegrationSpec
 class ReadingItemControllerIntegrationSpec extends IntegrationSpec {
 
 
-    def "check chnage is read"() {
+    def "check change is read"() {
         setup:
         ReadingItemController readingItemController = new ReadingItemController()
 

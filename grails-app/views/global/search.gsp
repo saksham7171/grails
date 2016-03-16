@@ -8,14 +8,26 @@
 <body>
 <div class="row">
     <div class="col-xs-5">
-       <div class="panel panel-default">
+        <div class="panel panel-default">
             <div class="panel-heading">
-                Topics <a href="#" class="inline" style="float:right">view all</a>
+                Trending Topics <a href="#" class="inline" style="float:right">view all</a>
             </div>
 
-            <div class="panel-body" style="overflow-y:auto;height: 750px">
-                <g:each in="${topics}" var="topic">
-                    <g:render template="/user/show" model="[topic: topic]"/>
+            <div class="panel-body" style="overflow-y:auto;height: 350px">
+                <g:each in="${com.ttnd.linksharing.Topic.getTrendingTopics()}" var="topic">
+                    <g:render template="/user/trendingTopics" model="[topic: topic]"/>
+                </g:each>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Top Posts <a href="#" class="inline" style="float:right">view all</a>
+            </div>
+
+            <div class="panel-body" style="overflow-y:auto;height: 350px">
+                <g:each in="${com.ttnd.linksharing.Resource.getTopPost()}" var="topic">
+                    <g:render template="/shared/posts" model="[post: topic]"/>
                 </g:each>
             </div>
         </div>
@@ -27,8 +39,13 @@
                 Posts
             </div>
 
-            <div class="panel-body" style="overflow-y: auto;height: 740px">
-                    <g:render template="/topic/topicPosts" model="[resources:resources]"/>
+            <div class="panel-body" style="height: 700px">
+                <g:render template="/topic/topicPosts" model="[resources: resources]"/>
+                <div class="pagination">
+                    <g:paginate next="Next" prev="Prev" total="${total}" maxsteps="${resources.size()}"
+                                controller="login" action="globalSearch"
+                                max="${co.max}" offset="${co.offset}"/>
+                </div>
             </div>
         </div>
 

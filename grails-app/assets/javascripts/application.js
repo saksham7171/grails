@@ -55,7 +55,7 @@ $(document).ready(function () {
     })
 
     $('#createTopicBtn').click(function (e) {
-        e.preventDefault()
+        e.preventDefault();
         $.ajax({
             url: "/topic/save",
             data: {topicName: $('#topicName').val(), visibility: $('#visibility').val()},
@@ -183,4 +183,43 @@ $(document).ready(function () {
         })
     });
 
-})
+    $('.editButton').click(function () {
+        $(this).closest('.topicBox').find('.edit').show()
+        $('.tc').hide()
+    });
+    $('.editTitleCancel').click(function(){
+        $(this).closest('.topicBox').find('.edit').hide()
+        $('.tc').show()
+    });
+    $('.topicBox .editTitleSave').click(function (e) {
+        e.preventDefault()
+        updatedTitle = $(this).closest('.topicBox').find('.editTextBox').val()
+        topicId = $(this).closest('.topicBox').find('.editTopicId').val()
+        $.ajax({
+            url: "/topic/titleUpdate",
+            data: {id: topicId, topicName: updatedTitle},
+            success: function (jsonObject) {
+                if (jsonObject) {
+                    $('.json').css({"display": "block"});
+                    if (jsonObject.message) {
+                        $('.json').text(jsonObject.message);
+                        $('.json').addClass('alert alert-success');
+                    }
+                    else if (jsonObject.error) {
+                        $('.json').text(jsonObject.error);
+                        $('.json').addClass('alert alert-danger');
+                    }
+
+                }
+                window.setTimeout(function(){location.reload()},1000)
+            }
+        })
+    });
+  /*  $(document).ready($(function () {
+        $("#rateYo").rateYo({
+            rating: 2,
+            fullStar: true
+        });
+    }));
+    $("#rateYo").rateYo("option", "fullStar", true); //returns a jQuery Element*/
+});

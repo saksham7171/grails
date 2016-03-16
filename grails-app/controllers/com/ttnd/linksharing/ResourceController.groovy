@@ -27,7 +27,7 @@ class ResourceController {
         } else {
             flash.error = "Resource deletion not allowed"
         }
-        redirect(uri: '/')
+        redirect controller: 'user',action: 'index'
     }
 
     def search(ResourceSearchCO co) {
@@ -41,12 +41,13 @@ class ResourceController {
     def show(Long id) {
         List<Topic> topics = Topic.getTrendingTopics()
         Resource resource = Resource.get(id)
-//        RatingInfoVO vo = resource.ratingInfo
-//        vo
+        RatingInfoVO vo = resource.ratingInfo
+        vo
         if (resource.canViewBy(session.user)) {
             render view: "show", model: [resource: resource, topics: topics]
         }
-//        render(vo.totalVotes + " " + vo.averageScore + " " + vo.totalScore)
+        render view :"show",model: [resource: resource,score:vo,topics: topics]
+
     }
 
     def showTrendingTopics() {
@@ -78,6 +79,6 @@ class ResourceController {
         } else {
             flash.message = "Description can't be Blank"
         }
-        redirect controller: 'resource', action: 'show'
+        redirect controller: 'resource', action: 'show',params: [id:resource.id]
     }
 }

@@ -35,6 +35,21 @@ abstract class Resource {
             if (co.q) {
                 ilike('description', "%${co.q}%")
             }
+
+        }
+        globalSearch { ResourceSearchCO co ->
+
+            if (co.visibility) {
+                'topic' {
+                    or {
+                        eq('visibility', co.visibility)
+                        ilike('name', "%${co.q}%")
+                    }
+                }
+            }
+            if (co.q) {
+                ilike('description', "%${co.q}%")
+            }
         }
     }
 
@@ -50,6 +65,14 @@ abstract class Resource {
         new RatingInfoVO(totalVotes: result[0], averageScore: result[1], totalScore: result[2])
     }
 
+    static List<User> userWithUnreadResources(){
+        ReadingItem.createCriteria().listDistinct {
+            projections {
+                property('user')
+            }
+            eq('isRead',false)
+        }
+    }
     static List<Resource> getTopPost() {        //todo check count of top posts
         List<Resource> resources = []
         def result = ResourceRating.createCriteria().list {
@@ -88,14 +111,11 @@ abstract class Resource {
     }
 
     Boolean canViewBy(User user) {
-        if (this.topic.canViewedBy(user))
-            return true
-        else {
-            false
-        }
+        return (this.topic.canViewedBy(user))
     }
 
     def deleteResource() {
         log.info "Resource deleted"
     }
+
 }
